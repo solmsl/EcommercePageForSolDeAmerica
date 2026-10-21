@@ -489,53 +489,79 @@ export default function App() {
 
       <section
         id="servicios"
-        className="scroll-mt-20 bg-sky-950 px-5 py-20 text-white lg:px-8 lg:py-28"
+        className="scroll-mt-20 bg-sky-50 px-5 py-20 lg:px-8 lg:py-28"
       >
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <div className="flex items-end justify-between gap-6">
             <div>
-              <p className="section-kicker !text-sky-300">Nuestro taller</p>
-              <h2 className="section-title !text-white">
-                Soluciones hechas para durar.
+              <p className="section-kicker">Nuestros servicios</p>
+              <h2 className="section-title max-w-xl">
+                Todo lo que necesitás en un solo lugar.
               </h2>
-              <p className="mt-6 max-w-md text-sm leading-7 text-sky-100/70">
-                Más que reparar, recuperamos esas cosas que forman parte de tu
-                día a día. Combinamos oficio tradicional, buenos materiales y
-                atención honesta.
-              </p>
-              <a
-                href={waLink(
-                  "Hola, quisiera consultar por un servicio del taller.",
-                )}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-8 inline-flex h-12 items-center gap-3 rounded-full bg-sky-400 px-6 text-sm font-bold text-sky-950 transition hover:bg-white"
-              >
-                Consultar un trabajo <Icon name="arrow" />
-              </a>
             </div>
-            <div className="grid gap-px overflow-hidden rounded-[1.75rem] bg-white/10 sm:grid-cols-2">
-              {filteredServices.map((service) => (
-                <article
-                  key={service.title}
-                  className="bg-sky-950 p-7 transition hover:bg-sky-900 lg:p-8"
-                >
-                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-sky-400/10 text-sky-300">
-                    <Icon name={service.icon} className="h-6 w-6" />
-                  </span>
-                  <h3 className="mt-5 font-bold">{service.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-sky-100/60">
-                    {service.text}
-                  </p>
-                </article>
-              ))}
-              {filteredServices.length === 0 && (
-                <p className="bg-sky-950 p-8 text-sm text-sky-100/70 sm:col-span-2">
-                  No encontramos servicios con esa búsqueda.
-                </p>
+            <a
+              href={waLink(
+                "Hola, quisiera consultar por todos los servicios disponibles.",
               )}
-            </div>
+              target="_blank"
+              rel="noreferrer"
+              className="mb-1 hidden shrink-0 items-center gap-2 text-sm font-bold text-sky-950 transition hover:text-sky-600 sm:flex"
+            >
+              Ver todos
+              <Icon name="arrow" className="h-4 w-4" />
+            </a>
           </div>
+
+          <div className="-mx-5 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-3 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-5">
+            {filteredServices.map((service) => (
+              <article
+                key={service.title}
+                className="group relative aspect-[3/4] w-[76vw] max-w-[270px] shrink-0 snap-start overflow-hidden rounded-[1.5rem] bg-sky-950 shadow-sm sm:w-auto sm:max-w-none"
+              >
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  referrerPolicy="no-referrer"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-sky-950/65 via-transparent to-transparent" />
+                <a
+                  href={waLink(
+                    `Hola, quisiera consultar por el servicio de ${service.title}.`,
+                  )}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="absolute right-3 bottom-3 left-3 flex min-h-14 items-center justify-between gap-3 rounded-2xl bg-white/95 px-4 py-3 text-sky-950 shadow-lg backdrop-blur-sm transition hover:bg-sky-400"
+                >
+                  <span className="text-sm leading-tight font-extrabold">
+                    {service.title}
+                  </span>
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-sky-200">
+                    <Icon name="arrow" className="h-4 w-4" />
+                  </span>
+                </a>
+              </article>
+            ))}
+            {filteredServices.length === 0 && (
+              <p className="w-full py-16 text-center text-sm text-slate-500 sm:col-span-2 lg:col-span-5">
+                No encontramos servicios con esa búsqueda.
+              </p>
+            )}
+          </div>
+
+          <a
+            href={waLink(
+              "Hola, quisiera consultar por todos los servicios disponibles.",
+            )}
+            target="_blank"
+            rel="noreferrer"
+            className="mx-auto mt-7 flex w-fit items-center gap-2 text-sm font-bold text-sky-950 sm:hidden"
+          >
+            Ver todos
+            <Icon name="arrow" className="h-4 w-4" />
+          </a>
         </div>
       </section>
 
@@ -553,18 +579,16 @@ export default function App() {
           </div>
           <div className="flex items-center p-8 sm:p-14 lg:p-16">
             <div>
-              <p className="section-kicker">Cada pieza importa</p>
-              <h2 className="section-title">El valor de reparar.</h2>
+              <p className="section-kicker">Sobre Nosotros</p>
+              <h2 className="section-title">Oficio, Experiencia y Dedicación.</h2>
               <p className="mt-6 text-sm leading-7 text-slate-600">
-                Creemos en extender la vida útil de lo que ya tenés. Una buena
-                reparación cuida tu bolsillo, reduce residuos y conserva objetos
-                con historia.
+                Mas que reparar, recuperamos esas cosas que forman parte de tu día a día. Combinamos oficio tradicional con buenos materiales para darte solución ingeniosa.
               </p>
               <ul className="mt-7 space-y-3">
                 {[
-                  "Evaluación y presupuesto sin cargo",
-                  "Materiales seleccionados para cada trabajo",
-                  "Garantía en nuestras reparaciones",
+                  "Evaluación y presupuesto sin cargo.",
+                  "Materiales seleccionados para cada trabajo.",
+                  "Cuidado profesional y cerrajería de confianza.",
                 ].map((item) => (
                   <li
                     key={item}

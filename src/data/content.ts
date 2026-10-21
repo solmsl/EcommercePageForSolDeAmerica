@@ -1,5 +1,3 @@
-import type { IconName } from "../components/Icon"
-
 export const slides = [
   {
     image:
@@ -83,34 +81,34 @@ export const products = [
 
 export const services = [
   {
-    icon: "shoe" as IconName,
-    title: "Compostura de calzado",
-    text: "Cambio de suelas, tacos, medias suelas, costuras, pegado y ensanchado.",
+    title: "Zapatería",
+    text: "Composturas, restauración y cuidado de calzado.",
+    image:
+      "https://images.unsplash.com/photo-1759662232622-6c0754a379f4?auto=format&fit=crop&w=700&q=82",
   },
   {
-    icon: "sparkles" as IconName,
-    title: "Restauración y cuidado",
-    text: "Teñido, limpieza profunda, lustrado y renovación de cuero y gamuza.",
+    title: "Cerrajería del Hogar",
+    text: "Llaves, cerraduras y soluciones para tu hogar.",
+    image:
+      "https://images.unsplash.com/photo-1737442886747-9fb768b96ed2?auto=format&fit=crop&w=700&q=82",
   },
   {
-    icon: "bag" as IconName,
-    title: "Carteras y mochilas",
-    text: "Cambio de cierres, broches, correas, hebillas, costuras y refuerzos.",
+    title: "Cerrajería del Automotor",
+    text: "Copias y soluciones para llaves de vehículos.",
+    image:
+      "https://images.unsplash.com/photo-1533558701576-23c65e0272fb?auto=format&fit=crop&w=700&q=82",
   },
   {
-    icon: "key" as IconName,
-    title: "Duplicado de llaves",
-    text: "Copias de llaves de hogar, candados, muebles y llaves especiales.",
+    title: "Impresiones",
+    text: "Impresiones y copias rápidas en el local.",
+    image:
+      "https://images.unsplash.com/photo-1706895040634-62055892cbbb?auto=format&fit=crop&w=700&q=82",
   },
   {
-    icon: "shield" as IconName,
-    title: "Cerrajería integral",
-    text: "Aperturas, cambios de combinación, instalación y reparación de cerraduras.",
-  },
-  {
-    icon: "clock" as IconName,
-    title: "Trabajos en el día",
-    text: "Consultá por nuestros servicios rápidos y retiralos en pocas horas.",
+    title: "SUBE",
+    text: "Carga de saldo para tu tarjeta SUBE.",
+    image:
+      "https://images.unsplash.com/photo-1632276536839-84cad7fd03b0?auto=format&fit=crop&w=700&q=82",
   },
 ]
 
