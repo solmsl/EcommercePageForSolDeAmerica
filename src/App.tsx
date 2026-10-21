@@ -1,303 +1,108 @@
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react"
+import Icon, { type IconName } from "./components/Icon"
+import { faqs, products, services, slides } from "./data/content"
 
-const WHATSAPP_NUMBER = "5491123456789";
-
-type IconName =
-  | "arrow"
-  | "bag"
-  | "check"
-  | "chevron"
-  | "clock"
-  | "close"
-  | "key"
-  | "map"
-  | "menu"
-  | "phone"
-  | "search"
-  | "shield"
-  | "shoe"
-  | "sparkles"
-  | "whatsapp";
-
-function Icon({
-  name,
-  className = "h-5 w-5",
-}: {
-  name: IconName;
-  className?: string;
-}) {
-  const paths: Record<IconName, React.ReactNode> = {
-    arrow: <path d="M5 12h14m-5-5 5 5-5 5" />,
-    bag: (
-      <>
-        <path d="M5 8h14l-1 12H6L5 8Z" />
-        <path d="M9 10V6a3 3 0 0 1 6 0v4" />
-      </>
-    ),
-    check: <path d="m5 12 4 4L19 6" />,
-    chevron: <path d="m8 10 4 4 4-4" />,
-    clock: (
-      <>
-        <circle cx="12" cy="12" r="9" />
-        <path d="M12 7v5l3 2" />
-      </>
-    ),
-    close: <path d="m6 6 12 12M18 6 6 18" />,
-    key: (
-      <>
-        <circle cx="8" cy="15" r="4" />
-        <path d="m11 12 8-8m-2 2 2 2m-5 1 2 2" />
-      </>
-    ),
-    map: (
-      <>
-        <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
-        <circle cx="12" cy="10" r="2.5" />
-      </>
-    ),
-    menu: <path d="M4 7h16M4 12h16M4 17h16" />,
-    phone: (
-      <path d="M7 3H4a1 1 0 0 0-1 1c0 9.4 7.6 17 17 17a1 1 0 0 0 1-1v-3l-5-2-1.5 2c-3.2-1.4-5.7-3.9-7.1-7L9 8 7 3Z" />
-    ),
-    search: (
-      <>
-        <circle cx="10.5" cy="10.5" r="6.5" />
-        <path d="m15.5 15.5 5 5" />
-      </>
-    ),
-    shield: (
-      <>
-        <path d="M12 3 5 6v5c0 4.8 3 8.1 7 10 4-1.9 7-5.2 7-10V6l-7-3Z" />
-        <path d="m9 12 2 2 4-4" />
-      </>
-    ),
-    shoe: <path d="M3 14c4 0 5-1 6-6l3 1c1 4 4 5 8 5l1 4H4a2 2 0 0 1-1-4Z" />,
-    sparkles: (
-      <>
-        <path d="m12 3 1.3 3.7L17 8l-3.7 1.3L12 13l-1.3-3.7L7 8l3.7-1.3L12 3Z" />
-        <path d="m18 14 .8 2.2L21 17l-2.2.8L18 20l-.8-2.2L15 17l2.2-.8L18 14ZM5 12l.7 2.3L8 15l-2.3.7L5 18l-.7-2.3L2 15l2.3-.7L5 12Z" />
-      </>
-    ),
-    whatsapp: (
-      <path d="M20 11.8a8 8 0 0 1-11.8 7L4 20l1.2-4.1A8 8 0 1 1 20 11.8Zm-11.9-4c-.2-.5-.4-.5-.7-.5H6.8c-.3 0-.7.1-.9.5-.3.4-1 1.3-1 3.1s1.2 3.5 1.4 3.7c.2.3 2.4 3.9 6 5.3 3 1.2 3.6 1 4.3.9.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.6.2-1.8-.1-.2-.4-.3-.8-.5l-2.5-1.2c-.4-.1-.7-.2-1 .3l-1.1 1.3c-.2.3-.5.4-.9.2a9.4 9.4 0 0 1-2.9-1.8 10.5 10.5 0 0 1-2-2.5c-.2-.4 0-.6.2-.8l.6-.7.3-.7c.1-.2 0-.5 0-.7L8.1 7.8Z" />
-    ),
-  };
-
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden="true"
-    >
-      {paths[name]}
-    </svg>
-  );
-}
-
-const slides = [
-  {
-    image:
-      "https://images.unsplash.com/photo-1529953717281-81a40b131119?auto=format&fit=crop&w=1800&q=86",
-    eyebrow: "Oficio, experiencia y dedicación",
-    title: "Tus zapatos, como nuevos.",
-    text: "Composturas artesanales y soluciones de cerrajería en un mismo lugar.",
-  },
-  {
-    image:
-      "https://images.unsplash.com/photo-1749477417968-2bc986bc6a42?auto=format&fit=crop&w=1800&q=86",
-    eyebrow: "Cerrajería de confianza",
-    title: "La solución está más cerca.",
-    text: "Duplicado de llaves, cambios de combinación y aperturas.",
-  },
-  {
-    image:
-      "https://images.unsplash.com/photo-1653868249587-284b275a1c67?auto=format&fit=crop&w=1800&q=86",
-    eyebrow: "Cuidado profesional",
-    title: "Reparamos lo que te acompaña.",
-    text: "Renovamos calzado, carteras, mochilas y mucho más.",
-  },
-];
-
-const products = [
-  {
-    id: 1,
-    name: "Plantillas confort premium",
-    category: "Calzado",
-    price: 8900,
-    image:
-      "https://images.unsplash.com/photo-1550998358-08b4f83dc345?auto=format&fit=crop&w=700&q=82",
-    tag: "Más vendido",
-  },
-  {
-    id: 2,
-    name: "Kit de limpieza para cuero",
-    category: "Cuidado",
-    price: 12800,
-    image:
-      "https://images.unsplash.com/photo-1577467013350-7c22a844e1a9?auto=format&fit=crop&w=700&q=82",
-    tag: "Nuevo",
-  },
-  {
-    id: 3,
-    name: "Cordones encerados clásicos",
-    category: "Calzado",
-    price: 3500,
-    image:
-      "https://images.unsplash.com/photo-1543201017-a54835bbbc5d?auto=format&fit=crop&w=700&q=82",
-    tag: "",
-  },
-  {
-    id: 4,
-    name: "Candado de seguridad 50 mm",
-    category: "Cerrajería",
-    price: 15900,
-    image:
-      "https://images.unsplash.com/photo-1758351507272-aa6929fe997e?auto=format&fit=crop&w=700&q=82",
-    tag: "Recomendado",
-  },
-  {
-    id: 5,
-    name: "Cepillo profesional de crin",
-    category: "Cuidado",
-    price: 7600,
-    image:
-      "https://images.unsplash.com/photo-1577467013301-3cfafe7079a3?auto=format&fit=crop&w=700&q=82",
-    tag: "",
-  },
-  {
-    id: 6,
-    name: "Cilindro de seguridad reforzado",
-    category: "Cerrajería",
-    price: 28500,
-    image:
-      "https://images.unsplash.com/photo-1756341782434-3020b9d17372?auto=format&fit=crop&w=700&q=82",
-    tag: "Stock limitado",
-  },
-];
-
-const services = [
-  {
-    icon: "shoe" as IconName,
-    title: "Compostura de calzado",
-    text: "Cambio de suelas, tacos, medias suelas, costuras, pegado y ensanchado.",
-  },
-  {
-    icon: "sparkles" as IconName,
-    title: "Restauración y cuidado",
-    text: "Teñido, limpieza profunda, lustrado y renovación de cuero y gamuza.",
-  },
-  {
-    icon: "bag" as IconName,
-    title: "Carteras y mochilas",
-    text: "Cambio de cierres, broches, correas, hebillas, costuras y refuerzos.",
-  },
-  {
-    icon: "key" as IconName,
-    title: "Duplicado de llaves",
-    text: "Copias de llaves de hogar, candados, muebles y llaves especiales.",
-  },
-  {
-    icon: "shield" as IconName,
-    title: "Cerrajería integral",
-    text: "Aperturas, cambios de combinación, instalación y reparación de cerraduras.",
-  },
-  {
-    icon: "clock" as IconName,
-    title: "Trabajos en el día",
-    text: "Consultá por nuestros servicios rápidos y retiralos en pocas horas.",
-  },
-];
-
-const faqs = [
-  {
-    q: "¿Cuánto demora una compostura?",
-    a: "La mayoría de los trabajos se entregan entre 48 y 72 horas. También contamos con reparaciones express según el tipo de trabajo.",
-  },
-  {
-    q: "¿Puedo pedir presupuesto por WhatsApp?",
-    a: "Sí. Envianos fotos claras del calzado, cartera o cerradura y te damos una primera estimación sin cargo.",
-  },
-  {
-    q: "¿Hacen copias de todo tipo de llaves?",
-    a: "Trabajamos con llaves de hogar, candados, muebles y varios modelos especiales. Consultanos con una foto para confirmar disponibilidad.",
-  },
-  {
-    q: "¿Qué medios de pago aceptan?",
-    a: "Aceptamos efectivo, transferencia, tarjetas de débito y crédito en el local.",
-  },
-];
+const WHATSAPP_NUMBER = "5491121928109"
 
 function formatPrice(price: number) {
   return new Intl.NumberFormat("es-AR", {
     style: "currency",
     currency: "ARS",
     maximumFractionDigits: 0,
-  }).format(price);
+  }).format(price)
 }
 
 function waLink(message: string) {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
 }
 
 export default function App() {
-  const [slide, setSlide] = useState(0);
-  const [category, setCategory] = useState("Todos");
-  const [search, setSearch] = useState("");
-  const [cart, setCart] = useState<number[]>([]);
-  const [cartOpen, setCartOpen] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [openFaq, setOpenFaq] = useState(0);
+  const [slide, setSlide] = useState(0)
+  const [category, setCategory] = useState("Todos")
+  const [search, setSearch] = useState("")
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [cart, setCart] = useState<number[]>([])
+  const [cartOpen, setCartOpen] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [openFaq, setOpenFaq] = useState(0)
+  const searchInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     const timer = window.setInterval(
       () => setSlide((current) => (current + 1) % slides.length),
       6000,
-    );
-    return () => window.clearInterval(timer);
-  }, []);
+    )
+    return () => window.clearInterval(timer)
+  }, [])
 
   const filteredProducts = useMemo(
     () =>
       products.filter(
         (product) =>
           (category === "Todos" || product.category === category) &&
-          product.name.toLowerCase().includes(search.toLowerCase()),
+          [product.name, product.category, product.tag]
+            .join(" ")
+            .toLowerCase()
+            .includes(search.trim().toLowerCase()),
       ),
     [category, search],
-  );
+  )
+  const filteredServices = useMemo(
+    () =>
+      services.filter((service) =>
+        [service.title, service.text]
+          .join(" ")
+          .toLowerCase()
+          .includes(search.trim().toLowerCase()),
+      ),
+    [search],
+  )
 
   const cartProducts = cart
     .map((id) => products.find((product) => product.id === id))
-    .filter(Boolean) as typeof products;
-  const cartTotal = cartProducts.reduce((sum, product) => sum + product.price, 0);
+    .filter(Boolean) as typeof products
+  const cartTotal = cartProducts.reduce(
+    (sum, product) => sum + product.price,
+    0,
+  )
 
   const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setMobileOpen(false);
-  };
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
+    setMobileOpen(false)
+  }
 
   const handleContact = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const message = `Hola, soy ${data.get("nombre")}. Quisiera consultar por: ${data.get("servicio")}.\n\n${data.get("mensaje")}`;
-    window.open(waLink(message), "_blank", "noopener,noreferrer");
-  };
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
+    const message = `Hola, soy ${data.get("nombre")}. Quisiera consultar por: ${data.get("servicio")}.\n\n${data.get("mensaje")}`
+    window.open(waLink(message), "_blank", "noopener,noreferrer")
+  }
 
   const checkout = () => {
-    const items = cartProducts.map((item) => `• ${item.name}`).join("\n");
+    const items = cartProducts.map((item) => `• ${item.name}`).join("\n")
     window.open(
       waLink(
         `Hola, quiero consultar por este pedido:\n${items}\n\nTotal estimado: ${formatPrice(cartTotal)}`,
       ),
       "_blank",
       "noopener,noreferrer",
-    );
-  };
+    )
+  }
+
+  const openSearch = () => {
+    setSearchOpen((open) => {
+      if (!open) {
+        setCategory("Todos")
+        window.setTimeout(() => searchInputRef.current?.focus(), 100)
+      }
+      return !open
+    })
+  }
+
+  const closeSearch = () => {
+    setSearchOpen(false)
+    setSearch("")
+  }
 
   return (
     <main className="min-h-screen bg-white text-slate-900">
@@ -309,17 +114,29 @@ export default function App() {
         <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 lg:px-8">
           <button
             onClick={() => scrollTo("inicio")}
-            className="flex items-center gap-3 text-left"
+            className="grid grid-cols-[48px_auto] grid-rows-[auto_auto] items-center gap-x-1.5 gap-y-1 text-left sm:flex sm:gap-3"
             aria-label="Ir al inicio"
           >
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-sky-500 text-white">
-              <Icon name="key" className="h-5 w-5" />
+            <span className="grid h-[38px] w-[48px] place-items-center sm:h-[44px] sm:w-[60px]">
+              <img
+                src={
+                  new URL("./assets/sol-de-america-logo.png", import.meta.url)
+                    .href
+                }
+                alt=""
+                className="h-full w-full object-contain"
+                width="62"
+                height="46"
+                decoding="async"
+              />
             </span>
-            <span>
-              <span className="block text-xl leading-none font-extrabold tracking-[-0.04em] text-sky-950">
-                PASO & LLAVE
+            <span className="contents sm:block">
+              {/* Logo */}
+              <span className="block self-center whitespace-nowrap font-['Jersey_25'] text-[18px] leading-none font-semibold tracking-[-0.04px] text-black sm:text-[22px]">
+                <span className="block sm:inline">SOL DE</span>{" "}
+                <span className="block sm:inline">AMÉRICA</span>
               </span>
-              <span className="mt-1 block text-[9px] font-bold tracking-[0.25em] text-sky-500 uppercase">
+              <span className="col-span-2 -mt-0.5 block text-center text-[8px] leading-none font-bold tracking-[1px] text-sky-500 uppercase sm:mt-1 sm:text-left sm:tracking-[1.44px] sm:text-[9px]">
                 Zapatería · Cerrajería
               </span>
             </span>
@@ -345,6 +162,30 @@ export default function App() {
 
           <div className="flex items-center gap-2">
             <button
+              onClick={openSearch}
+              className={`grid h-11 w-11 place-items-center rounded-full border transition ${
+                searchOpen
+                  ? "border-sky-950 bg-sky-950 text-white"
+                  : "border-sky-100 text-sky-950 hover:border-sky-200 hover:bg-sky-50"
+              }`}
+              aria-label={
+                searchOpen ? "Cerrar búsqueda" : "Buscar productos y servicios"
+              }
+              aria-expanded={searchOpen}
+              aria-controls="site-search"
+            >
+              <Icon name="search" />
+            </button>
+            <a
+              href={waLink("Hola, quisiera hacer una consulta.")}
+              target="_blank"
+              rel="noreferrer"
+              className="grid h-11 w-11 place-items-center rounded-full border border-sky-100 text-sky-950 transition hover:border-sky-200 hover:bg-sky-50"
+              aria-label="Contactar atención al cliente por WhatsApp"
+            >
+              <Icon name="user" />
+            </a>
+            <button
               onClick={() => setCartOpen(true)}
               className="relative grid h-11 w-11 place-items-center rounded-full border border-sky-100 text-sky-950 transition hover:bg-sky-50"
               aria-label="Ver carrito"
@@ -365,6 +206,61 @@ export default function App() {
             </button>
           </div>
         </div>
+        {searchOpen && (
+          <div id="site-search" className="border-t border-sky-100 bg-white">
+            <div className="mx-auto max-w-7xl px-5 py-4 lg:px-8">
+              <div className="relative">
+                <Icon
+                  name="search"
+                  className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-sky-500"
+                />
+                <input
+                  ref={searchInputRef}
+                  value={search}
+                  onChange={(event) => setSearch(event.target.value)}
+                  placeholder="Buscar productos o servicios..."
+                  className="h-13 w-full rounded-2xl border border-sky-200 bg-sky-50/60 pr-14 pl-12 text-sm font-medium text-sky-950 outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:bg-white focus:ring-4 focus:ring-sky-100"
+                  aria-label="Buscar productos o servicios"
+                />
+                <button
+                  onClick={closeSearch}
+                  className="absolute top-1/2 right-2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full text-slate-400 transition hover:bg-white hover:text-sky-950"
+                  aria-label="Cerrar búsqueda"
+                >
+                  <Icon name="close" className="h-4 w-4" />
+                </button>
+              </div>
+              {search.trim() && (
+                <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
+                  {filteredProducts.length > 0 && (
+                    <button
+                      onClick={() => scrollTo("productos")}
+                      className="rounded-full bg-sky-100 px-3 py-2 font-bold text-sky-800 transition hover:bg-sky-200"
+                    >
+                      {filteredProducts.length}{" "}
+                      {filteredProducts.length === 1 ? "producto" : "productos"}
+                    </button>
+                  )}
+                  {filteredServices.length > 0 && (
+                    <button
+                      onClick={() => scrollTo("servicios")}
+                      className="rounded-full bg-sky-950 px-3 py-2 font-bold text-white transition hover:bg-sky-800"
+                    >
+                      {filteredServices.length}{" "}
+                      {filteredServices.length === 1 ? "servicio" : "servicios"}
+                    </button>
+                  )}
+                  {filteredProducts.length === 0 &&
+                    filteredServices.length === 0 && (
+                      <span className="py-1 font-semibold text-slate-500">
+                        No encontramos productos ni servicios con esa búsqueda.
+                      </span>
+                    )}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
         {mobileOpen && (
           <nav className="border-t border-sky-100 bg-white px-5 py-4 lg:hidden">
             {[
@@ -386,7 +282,10 @@ export default function App() {
         )}
       </header>
 
-      <section id="inicio" className="relative h-[600px] overflow-hidden sm:h-[680px]">
+      <section
+        id="inicio"
+        className="relative h-[600px] overflow-hidden sm:h-[680px]"
+      >
         {slides.map((item, index) => (
           <div
             key={item.title}
@@ -399,6 +298,9 @@ export default function App() {
               alt=""
               className="h-full w-full object-cover"
               referrerPolicy="no-referrer"
+              loading={index === 0 ? "eager" : "lazy"}
+              fetchPriority={index === 0 ? "high" : "low"}
+              decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-sky-950/90 via-sky-950/55 to-sky-950/10" />
           </div>
@@ -459,7 +361,10 @@ export default function App() {
             ["clock", "Atención rápida", "Consultá por trabajos en el día"],
             ["map", "Retiro en el local", "Lunes a sábados"],
           ].map(([icon, title, text]) => (
-            <div key={title} className="flex items-center gap-4 sm:justify-center">
+            <div
+              key={title}
+              className="flex items-center gap-4 sm:justify-center"
+            >
               <Icon name={icon as IconName} className="h-6 w-6 text-sky-500" />
               <div>
                 <p className="text-sm font-bold text-sky-950">{title}</p>
@@ -470,17 +375,21 @@ export default function App() {
         </div>
       </section>
 
-      <section id="productos" className="scroll-mt-24 px-5 py-20 lg:px-8 lg:py-28">
+      <section
+        id="productos"
+        className="scroll-mt-24 px-5 py-20 lg:px-8 lg:py-28"
+      >
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
             <div>
               <p className="section-kicker">Nuestra tienda</p>
               <h2 className="section-title">Productos destacados</h2>
               <p className="mt-4 max-w-xl text-sm leading-6 text-slate-500">
-                Todo lo que necesitás para cuidar tu calzado y proteger tu hogar.
+                Todo lo que necesitás para cuidar tu calzado y proteger tu
+                hogar.
               </p>
             </div>
-            <div className="relative w-full md:w-72">
+            {/* <div className="relative w-full md:w-72">
               <Icon
                 name="search"
                 className="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-slate-400"
@@ -491,10 +400,10 @@ export default function App() {
                 placeholder="Buscar productos..."
                 className="h-12 w-full rounded-full border border-slate-200 bg-white pr-4 pl-11 text-sm outline-none transition focus:border-sky-400"
               />
-            </div>
+            </div> */}
           </div>
 
-          <div className="mt-10 flex gap-2 overflow-x-auto pb-2">
+          {/* <div className="mt-10 flex gap-2 overflow-x-auto pb-2">
             {["Todos", "Calzado", "Cuidado", "Cerrajería"].map((item) => (
               <button
                 key={item}
@@ -508,7 +417,7 @@ export default function App() {
                 {item}
               </button>
             ))}
-          </div>
+          </div> */}
 
           <div className="mt-8 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             {filteredProducts.map((product) => (
@@ -519,6 +428,8 @@ export default function App() {
                     alt={product.name}
                     className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                     referrerPolicy="no-referrer"
+                    loading="lazy"
+                    decoding="async"
                   />
                   {product.tag && (
                     <span className="absolute top-4 left-4 rounded-full bg-white px-3 py-1.5 text-[10px] font-extrabold tracking-wide text-sky-950 uppercase shadow-sm">
@@ -537,7 +448,9 @@ export default function App() {
                     {product.category}
                   </p>
                   <div className="mt-1 flex items-start justify-between gap-4">
-                    <h3 className="font-semibold text-slate-800">{product.name}</h3>
+                    <h3 className="font-semibold text-slate-800">
+                      {product.name}
+                    </h3>
                     <p className="shrink-0 font-extrabold text-sky-950">
                       {formatPrice(product.price)}
                     </p>
@@ -560,18 +473,26 @@ export default function App() {
         </div>
       </section>
 
-      <section id="servicios" className="scroll-mt-20 bg-sky-950 px-5 py-20 text-white lg:px-8 lg:py-28">
+      <section
+        id="servicios"
+        className="scroll-mt-20 bg-sky-950 px-5 py-20 text-white lg:px-8 lg:py-28"
+      >
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
             <div>
               <p className="section-kicker !text-sky-300">Nuestro taller</p>
-              <h2 className="section-title !text-white">Soluciones hechas para durar.</h2>
+              <h2 className="section-title !text-white">
+                Soluciones hechas para durar.
+              </h2>
               <p className="mt-6 max-w-md text-sm leading-7 text-sky-100/70">
-                Más que reparar, recuperamos esas cosas que forman parte de tu día a día.
-                Combinamos oficio tradicional, buenos materiales y atención honesta.
+                Más que reparar, recuperamos esas cosas que forman parte de tu
+                día a día. Combinamos oficio tradicional, buenos materiales y
+                atención honesta.
               </p>
               <a
-                href={waLink("Hola, quisiera consultar por un servicio del taller.")}
+                href={waLink(
+                  "Hola, quisiera consultar por un servicio del taller.",
+                )}
                 target="_blank"
                 rel="noreferrer"
                 className="mt-8 inline-flex h-12 items-center gap-3 rounded-full bg-sky-400 px-6 text-sm font-bold text-sky-950 transition hover:bg-white"
@@ -580,7 +501,7 @@ export default function App() {
               </a>
             </div>
             <div className="grid gap-px overflow-hidden rounded-[1.75rem] bg-white/10 sm:grid-cols-2">
-              {services.map((service) => (
+              {filteredServices.map((service) => (
                 <article
                   key={service.title}
                   className="bg-sky-950 p-7 transition hover:bg-sky-900 lg:p-8"
@@ -589,9 +510,16 @@ export default function App() {
                     <Icon name={service.icon} className="h-6 w-6" />
                   </span>
                   <h3 className="mt-5 font-bold">{service.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-sky-100/60">{service.text}</p>
+                  <p className="mt-2 text-sm leading-6 text-sky-100/60">
+                    {service.text}
+                  </p>
                 </article>
               ))}
+              {filteredServices.length === 0 && (
+                <p className="bg-sky-950 p-8 text-sm text-sky-100/70 sm:col-span-2">
+                  No encontramos servicios con esa búsqueda.
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -605,6 +533,8 @@ export default function App() {
               alt="Artesano trabajando en el taller"
               className="h-full w-full object-cover"
               referrerPolicy="no-referrer"
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <div className="flex items-center p-8 sm:p-14 lg:p-16">
@@ -612,8 +542,9 @@ export default function App() {
               <p className="section-kicker">Cada pieza importa</p>
               <h2 className="section-title">El valor de reparar.</h2>
               <p className="mt-6 text-sm leading-7 text-slate-600">
-                Creemos en extender la vida útil de lo que ya tenés. Una buena reparación
-                cuida tu bolsillo, reduce residuos y conserva objetos con historia.
+                Creemos en extender la vida útil de lo que ya tenés. Una buena
+                reparación cuida tu bolsillo, reduce residuos y conserva objetos
+                con historia.
               </p>
               <ul className="mt-7 space-y-3">
                 {[
@@ -621,7 +552,10 @@ export default function App() {
                   "Materiales seleccionados para cada trabajo",
                   "Garantía en nuestras reparaciones",
                 ].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-sm font-semibold">
+                  <li
+                    key={item}
+                    className="flex items-center gap-3 text-sm font-semibold"
+                  >
                     <span className="grid h-6 w-6 place-items-center rounded-full bg-sky-500 text-white">
                       <Icon name="check" className="h-3.5 w-3.5" />
                     </span>
@@ -634,13 +568,17 @@ export default function App() {
         </div>
       </section>
 
-      <section id="preguntas" className="scroll-mt-20 border-y border-sky-100 bg-white px-5 py-20 lg:px-8 lg:py-28">
+      <section
+        id="preguntas"
+        className="scroll-mt-20 border-y border-sky-100 bg-white px-5 py-20 lg:px-8 lg:py-28"
+      >
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
           <div>
             <p className="section-kicker">Antes de visitarnos</p>
             <h2 className="section-title">Preguntas frecuentes</h2>
             <p className="mt-5 text-sm leading-7 text-slate-500">
-              ¿No encontrás lo que buscás? Escribinos y te respondemos a la brevedad.
+              ¿No encontrás lo que buscás? Escribinos y te respondemos a la
+              brevedad.
             </p>
           </div>
           <div className="divide-y divide-slate-200 border-t border-slate-200">
@@ -660,7 +598,9 @@ export default function App() {
                   </span>
                 </button>
                 {openFaq === index && (
-                  <p className="max-w-2xl pb-6 text-sm leading-7 text-slate-500">{faq.a}</p>
+                  <p className="max-w-2xl pb-6 text-sm leading-7 text-slate-500">
+                    {faq.a}
+                  </p>
                 )}
               </div>
             ))}
@@ -668,7 +608,10 @@ export default function App() {
         </div>
       </section>
 
-      <section id="contacto" className="scroll-mt-20 bg-sky-50 px-5 py-20 lg:px-8 lg:py-28">
+      <section
+        id="contacto"
+        className="scroll-mt-20 bg-sky-50 px-5 py-20 lg:px-8 lg:py-28"
+      >
         <div className="mx-auto grid max-w-7xl overflow-hidden rounded-[2rem] bg-white shadow-xl shadow-sky-950/5 lg:grid-cols-2">
           <div className="bg-sky-500 p-8 text-white sm:p-12 lg:p-16">
             <p className="text-xs font-bold tracking-[0.2em] text-sky-950 uppercase">
@@ -678,15 +621,17 @@ export default function App() {
               ¿En qué podemos ayudarte?
             </h2>
             <p className="mt-5 max-w-md text-sm leading-7 text-sky-950/75">
-              Contanos qué necesitás. Al enviar el formulario se abrirá WhatsApp con tu
-              consulta lista para enviar.
+              Contanos qué necesitás. Al enviar el formulario se abrirá WhatsApp
+              con tu consulta lista para enviar.
             </p>
             <div className="mt-10 space-y-6">
               <div className="flex gap-4">
                 <Icon name="map" className="mt-0.5 h-5 w-5 text-sky-950" />
                 <div>
                   <p className="font-bold">Nuestro local</p>
-                  <p className="mt-1 text-sm text-sky-950/70">Av. Principal 1234, Buenos Aires</p>
+                  <p className="mt-1 text-sm text-sky-950/70">
+                    Av. Principal 1234, Buenos Aires
+                  </p>
                 </div>
               </div>
               <div className="flex gap-4">
@@ -702,7 +647,9 @@ export default function App() {
                 <Icon name="phone" className="mt-0.5 h-5 w-5 text-sky-950" />
                 <div>
                   <p className="font-bold">WhatsApp</p>
-                  <p className="mt-1 text-sm text-sky-950/70">+54 9 11 2345-6789</p>
+                  <p className="mt-1 text-sm text-sky-950/70">
+                    +54 9 11 2345-6789
+                  </p>
                 </div>
               </div>
             </div>
@@ -711,7 +658,12 @@ export default function App() {
             <div className="grid gap-5">
               <label className="form-label">
                 Nombre
-                <input name="nombre" required placeholder="Tu nombre" className="form-input" />
+                <input
+                  name="nombre"
+                  required
+                  placeholder="Tu nombre"
+                  className="form-input"
+                />
               </label>
               <label className="form-label">
                 Servicio
@@ -745,28 +697,43 @@ export default function App() {
       <footer className="bg-sky-950 px-5 pt-16 text-white lg:px-8">
         <div className="mx-auto grid max-w-7xl gap-10 pb-12 sm:grid-cols-2 lg:grid-cols-4">
           <div className="sm:col-span-2">
-            <p className="text-2xl font-black tracking-[-0.04em]">PASO & LLAVE</p>
+            <p className="text-2xl font-black tracking-[-0.04em]">
+              PASO & LLAVE
+            </p>
             <p className="mt-4 max-w-sm text-sm leading-6 text-sky-100/60">
-              Zapatería y cerrajería de barrio. Oficio, confianza y soluciones para todos
-              los días.
+              Zapatería y cerrajería de barrio. Oficio, confianza y soluciones
+              para todos los días.
             </p>
           </div>
           <div>
-            <p className="text-xs font-bold tracking-[0.15em] text-sky-300 uppercase">Secciones</p>
+            <p className="text-xs font-bold tracking-[0.15em] text-sky-300 uppercase">
+              Secciones
+            </p>
             <div className="mt-4 space-y-3 text-sm text-sky-100/70">
-              <button onClick={() => scrollTo("productos")} className="block hover:text-white">
+              <button
+                onClick={() => scrollTo("productos")}
+                className="block hover:text-white"
+              >
                 Productos
               </button>
-              <button onClick={() => scrollTo("servicios")} className="block hover:text-white">
+              <button
+                onClick={() => scrollTo("servicios")}
+                className="block hover:text-white"
+              >
                 Servicios
               </button>
-              <button onClick={() => scrollTo("preguntas")} className="block hover:text-white">
+              <button
+                onClick={() => scrollTo("preguntas")}
+                className="block hover:text-white"
+              >
                 Preguntas
               </button>
             </div>
           </div>
           <div>
-            <p className="text-xs font-bold tracking-[0.15em] text-sky-300 uppercase">Contacto</p>
+            <p className="text-xs font-bold tracking-[0.15em] text-sky-300 uppercase">
+              Contacto
+            </p>
             <div className="mt-4 space-y-3 text-sm text-sky-100/70">
               <p>Av. Principal 1234</p>
               <p>Buenos Aires, Argentina</p>
@@ -787,7 +754,7 @@ export default function App() {
         className="fixed right-5 bottom-5 z-30 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-xl shadow-slate-950/20 transition hover:-translate-y-1 hover:scale-105"
         aria-label="Consultar por WhatsApp"
       >
-        <Icon name="whatsapp" className="h-7 w-7" />
+        <Icon name="whatsapp" className="h-7 w-7 fill-current stroke-none" />
       </a>
 
       {cartOpen && (
@@ -801,7 +768,9 @@ export default function App() {
             <div className="flex items-center justify-between border-b border-slate-100 pb-5">
               <div>
                 <p className="text-xl font-black text-sky-950">Tu carrito</p>
-                <p className="text-xs text-slate-500">{cart.length} productos</p>
+                <p className="text-xs text-slate-500">
+                  {cart.length} productos
+                </p>
               </div>
               <button
                 onClick={() => setCartOpen(false)}
@@ -814,26 +783,40 @@ export default function App() {
               {cartProducts.length === 0 ? (
                 <div className="grid h-full place-items-center text-center">
                   <div>
-                    <Icon name="bag" className="mx-auto h-10 w-10 text-sky-300" />
+                    <Icon
+                      name="bag"
+                      className="mx-auto h-10 w-10 text-sky-300"
+                    />
                     <p className="mt-4 font-bold">Tu carrito está vacío</p>
-                    <p className="mt-1 text-sm text-slate-500">Descubrí nuestros productos.</p>
+                    <p className="mt-1 text-sm text-slate-500">
+                      Descubrí nuestros productos.
+                    </p>
                   </div>
                 </div>
               ) : (
                 cartProducts.map((product, index) => (
-                  <div key={`${product.id}-${index}`} className="flex items-center gap-4">
+                  <div
+                    key={`${product.id}-${index}`}
+                    className="flex items-center gap-4"
+                  >
                     <img
                       src={product.image}
                       alt=""
                       className="h-20 w-20 rounded-2xl object-cover"
+                      loading="lazy"
+                      decoding="async"
                     />
                     <div className="min-w-0 flex-1">
                       <p className="text-sm font-bold">{product.name}</p>
-                      <p className="mt-1 text-sm text-sky-600">{formatPrice(product.price)}</p>
+                      <p className="mt-1 text-sm text-sky-600">
+                        {formatPrice(product.price)}
+                      </p>
                     </div>
                     <button
                       onClick={() =>
-                        setCart((items) => items.filter((_, itemIndex) => itemIndex !== index))
+                        setCart((items) =>
+                          items.filter((_, itemIndex) => itemIndex !== index),
+                        )
                       }
                       className="text-xs font-semibold text-slate-400 hover:text-red-500"
                     >
@@ -863,5 +846,5 @@ export default function App() {
         </div>
       )}
     </main>
-  );
+  )
 }
