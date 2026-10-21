@@ -43,15 +43,15 @@ export const products = [
       "https://images.unsplash.com/photo-1577467013350-7c22a844e1a9?auto=format&fit=crop&w=700&q=82",
     tag: "Nuevo",
   },
-  {
-    id: 3,
-    name: "Cordones encerados clásicos",
-    category: "Calzado",
-    price: 3500,
-    image:
-      "https://images.unsplash.com/photo-1543201017-a54835bbbc5d?auto=format&fit=crop&w=700&q=82",
-    tag: "",
-  },
+  // {
+  //   id: 3,
+  //   name: "Cordones encerados clásicos",
+  //   category: "Calzado",
+  //   price: 3500,
+  //   image:
+  //     "https://images.unsplash.com/photo-1543201017-a54835bbbc5d?auto=format&fit=crop&w=700&q=82",
+  //   tag: "",
+  // },
   {
     id: 4,
     name: "Candado de seguridad 50 mm",
@@ -59,17 +59,17 @@ export const products = [
     price: 15900,
     image:
       "https://images.unsplash.com/photo-1758351507272-aa6929fe997e?auto=format&fit=crop&w=700&q=82",
-    tag: "Recomendado",
+    tag: "Stock limitado",
   },
-  {
-    id: 5,
-    name: "Cepillo profesional de crin",
-    category: "Cuidado",
-    price: 7600,
-    image:
-      "https://images.unsplash.com/photo-1577467013301-3cfafe7079a3?auto=format&fit=crop&w=700&q=82",
-    tag: "",
-  },
+  // {
+  //   id: 5,
+  //   name: "Cepillo profesional de crin",
+  //   category: "Cuidado",
+  //   price: 7600,
+  //   image:
+  //     "https://images.unsplash.com/photo-1577467013301-3cfafe7079a3?auto=format&fit=crop&w=700&q=82",
+  //   tag: "",
+  // },
   {
     id: 6,
     name: "Cilindro de seguridad reforzado",

@@ -132,7 +132,7 @@ export default function App() {
             </span>
             <span className="contents sm:block">
               {/* Logo */}
-              <span className="block self-center whitespace-nowrap font-['Jersey_25'] text-[18px] leading-none font-semibold tracking-[-0.04px] text-black sm:text-[22px]">
+              <span className="block self-center whitespace-nowrap font-['Jersey_25'] text-[18px] leading-none font-semibold tracking-[-0.02px] text-black sm:text-[22px]">
                 <span className="block sm:inline">SOL DE</span>{" "}
                 <span className="block sm:inline">AMÉRICA</span>
               </span>
@@ -377,7 +377,7 @@ export default function App() {
 
       <section
         id="productos"
-        className="scroll-mt-24 px-5 py-20 lg:px-8 lg:py-28"
+        className="scroll-mt-24 px-5 pt-[75px] pb-[62px] lg:px-8 lg:py-28"
       >
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
@@ -419,14 +419,14 @@ export default function App() {
             ))}
           </div> */}
 
-          <div className="mt-8 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-x-3 gap-y-8 sm:gap-x-5 sm:gap-y-10 grid-cols-2 lg:grid-cols-4">
             {filteredProducts.map((product) => (
               <article key={product.id} className="group">
                 <div className="relative aspect-[4/4.3] overflow-hidden rounded-[1.5rem] bg-sky-50">
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                    className="h-full w-full object-cover sm:transition sm:duration-700 sm:group-hover:scale-105"
                     referrerPolicy="no-referrer"
                     loading="lazy"
                     decoding="async"
@@ -438,7 +438,7 @@ export default function App() {
                   )}
                   <button
                     onClick={() => setCart((items) => [...items, product.id])}
-                    className="absolute right-4 bottom-4 left-4 flex h-12 translate-y-3 items-center justify-center gap-2 rounded-full bg-sky-950 text-sm font-bold text-white opacity-0 shadow-lg transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 focus:translate-y-0 focus:opacity-100"
+                    className="absolute right-4 bottom-4 left-4 hidden h-12 translate-y-3 items-center justify-center gap-2 rounded-full bg-sky-950 text-sm font-bold text-white opacity-0 shadow-lg transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 focus:translate-y-0 focus:opacity-100 sm:flex"
                   >
                     <Icon name="bag" className="h-4 w-4" /> Agregar al carrito
                   </button>
@@ -457,9 +457,10 @@ export default function App() {
                   </div>
                   <button
                     onClick={() => setCart((items) => [...items, product.id])}
-                    className="mt-3 text-xs font-bold text-sky-600 sm:hidden"
+                    className="mt-3 flex items-center gap-1.5 text-xs font-bold text-sky-600 sm:hidden"
                   >
-                    + Agregar al carrito
+                    <Icon name="bag" className="h-3.5 w-3.5" />
+                    Agregar al carrito
                   </button>
                 </div>
               </article>
@@ -470,6 +471,19 @@ export default function App() {
               No encontramos productos con esa búsqueda.
             </p>
           )}
+          <div className="mt-12 flex justify-center">
+            <a
+              href={waLink(
+                "Hola, quisiera ver todos los productos disponibles.",
+              )}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-12 items-center gap-2 rounded-full bg-sky-950 px-6 text-sm font-bold text-white transition hover:bg-sky-800"
+            >
+              Ver todos los productos
+              <Icon name="arrow" className="h-4 w-4" />
+            </a>
+          </div>
         </div>
       </section>
 
@@ -697,8 +711,8 @@ export default function App() {
       <footer className="bg-sky-950 px-5 pt-16 text-white lg:px-8">
         <div className="mx-auto grid max-w-7xl gap-10 pb-12 sm:grid-cols-2 lg:grid-cols-4">
           <div className="sm:col-span-2">
-            <p className="text-2xl font-black tracking-[-0.04em]">
-              PASO & LLAVE
+            <p className="text-2xl font-['Jersey_25'] font-black leading-none font-semibold tracking-[-0.03px]">
+              SOL DE AMÉRICA
             </p>
             <p className="mt-4 max-w-sm text-sm leading-6 text-sky-100/60">
               Zapatería y cerrajería de barrio. Oficio, confianza y soluciones
@@ -742,7 +756,7 @@ export default function App() {
           </div>
         </div>
         <div className="mx-auto flex max-w-7xl flex-col gap-2 border-t border-white/10 py-6 text-[11px] text-sky-100/40 sm:flex-row sm:justify-between">
-          <p>© 2025 Paso & Llave. Todos los derechos reservados.</p>
+          <p>© 2026 Sol De América. Todos los derechos reservados.</p>
           <p>Hecho con dedicación, como cada reparación.</p>
         </div>
       </footer>
