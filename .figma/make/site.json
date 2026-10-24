@@ -1,7 +1,14 @@
 {
+  "title": "Sol de América | Zapatería - Cerrajería",
   "description": "This eCommerce platform showcases a shoe and locksmith shop with a product carousel, service details, and easy WhatsApp contact for customer inquiries.",
   "robots": {
     "index": false
+  },
+  "icons": {
+    "icon": "/.figma/make/favicon.png"
+  },
+  "openGraph": {
+    "image": "/.figma/make/social-image.png"
   },
   "accessibility": {
     "addBypassLinks": false,

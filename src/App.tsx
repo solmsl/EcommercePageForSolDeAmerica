@@ -565,47 +565,103 @@ export default function App() {
         </div>
       </section>
 
+      {/* sector sobre nosotros */}
       <section className="px-5 py-20 lg:px-8 lg:py-28">
-        <div className="mx-auto grid max-w-7xl overflow-hidden rounded-[2rem] bg-sky-50 lg:grid-cols-2">
-          <div className="min-h-[420px]">
-            <img
-              src="https://images.unsplash.com/photo-1597318404273-4dfde9917a01?auto=format&fit=crop&w=1000&q=85"
-              alt="Artesano trabajando en el taller"
-              className="h-full w-full object-cover"
-              referrerPolicy="no-referrer"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <div className="flex items-center p-8 sm:p-14 lg:p-16">
-            <div>
-              <p className="section-kicker">Sobre Nosotros</p>
-              <h2 className="section-title">Oficio, Experiencia y Dedicación.</h2>
-              <p className="mt-6 text-sm leading-7 text-slate-600">
-                Mas que reparar, recuperamos esas cosas que forman parte de tu día a día. Combinamos oficio tradicional con buenos materiales para darte solución ingeniosa.
-              </p>
-              <ul className="mt-7 space-y-3">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-sky-50 p-8 sm:p-14 lg:p-16">
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
+            {/* Columna izquierda: Texto descriptivo principal */}
+            <div className="flex flex-col">
+              <div>
+                <p className="section-kicker">Sobre nosotros</p>
+                <h2 className="section-title text-3xl sm:text-5xl font-black tracking-tight text-sky-950 mt-2">
+                  Oficio, Experiencia y Dedicación.
+                </h2>
+                <p className="mt-6 text-sm sm:text-base leading-7 text-slate-600">
+                  Más que reparar, recuperamos esas cosas que forman parte de tu día a día. Combinamos oficio tradicional con buenos materiales para darte una solución ingeniosa.
+                </p>
+              </div>
+            </div>
+
+            {/* Columna derecha: Lista de tildes, tira exclusiva de iconos sin texto y botón centrado */}
+            <div className="flex flex-col justify-between h-full space-y-8 lg:pt-4">
+              <ul className="space-y-4">
                 {[
                   "Evaluación y presupuesto sin cargo.",
                   "Materiales seleccionados para cada trabajo.",
                   "Cuidado profesional y cerrajería de confianza.",
-                ].map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-center gap-3 text-sm font-semibold"
-                  >
-                    <span className="grid h-6 w-6 place-items-center rounded-full bg-sky-500 text-white">
-                      <Icon name="check" className="h-3.5 w-3.5" />
+                ].map((item, idx) => (
+                  <li key={idx} className="flex items-center gap-4 text-sm sm:text-base font-semibold text-sky-950">
+                    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-sky-500 text-white shadow-sm">
+                      <Icon name="check" className="h-4 w-4" />
                     </span>
                     {item}
                   </li>
                 ))}
               </ul>
+
+              {/* Tira compacta solo de iconos limpios separados por barras verticales */}
+              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 py-3 px-6 rounded-2xl bg-white border border-sky-100 shadow-sm text-sky-700">
+                
+                {/* Zapatilla */}
+                <div title="Zapatilla" className="transition hover:scale-110">
+                  <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M3 14c0-1.1.9-2 2-2h1.2l2.3-4.6A2 2 0 0 1 13.4 6h4.1c1.6 0 3 1.3 3 3v2h1.5a1.5 1.5 0 0 1 0 3H3z"/></svg>
+                </div>
+                <span className="text-slate-300 font-light">|</span>
+
+                {/* Mochila */}
+                <div title="Mochila" className="transition hover:scale-110">
+                  <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M9 3a2 2 0 0 0-2 2v1H5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2V5a2 2 0 0 0-2-2H9zm2 2h2v1h-2V5zm-6 4h14v11H5V9z"/></svg>
+                </div>
+                <span className="text-slate-300 font-light">|</span>
+
+                {/* Cartera */}
+                <div title="Cartera" className="transition hover:scale-110">
+                  <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M4 8h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2zm2-3a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v1H6V5z"/></svg>
+                </div>
+                <span className="text-slate-300 font-light">|</span>
+
+                {/* Ojota */}
+                <div title="Ojota" className="transition hover:scale-110">
+                  <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v6.5a4.5 4.5 0 1 0 6 0V5a3 3 0 0 0-3-3zm1 14.5a2.5 2.5 0 1 1-2 0V12h2z"/></svg>
+                </div>
+                <span className="text-slate-300 font-light">|</span>
+
+                {/* Llave de hogar */}
+                <div title="Llave" className="transition hover:scale-110">
+                  <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 8-8m-2 2 2 2m-5 1 2 2"/></svg>
+                </div>
+                <span className="text-slate-300 font-light">|</span>
+
+                {/* Llave de auto con control */}
+                <div title="Llave de auto" className="transition hover:scale-110">
+                  <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 3a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm4 12H8v-2h8v2zm0-4H8v-2h8v2z"/></svg>
+                </div>
+                <span className="text-slate-300 font-light">|</span>
+
+                {/* Impresora */}
+                <div title="Impresora" className="transition hover:scale-110">
+                  <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M6 3h12a2 2 0 0 1 2 2v3H4V5a2 2 0 0 1 2-2zm14 8H4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h2v3h12v-3h2a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2zm-3 8H7v-4h10v4z"/></svg>
+                </div>
+
+              </div>
+
+              {/* Botón centrado perfectamente debajo de la barra de iconos */}
+              <div className="flex justify-center pt-2">
+                <a
+                  href={waLink("Hola, quisiera consultar por un trabajo del taller.")}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex h-12 items-center gap-2 rounded-full bg-sky-950 px-8 text-sm font-bold text-white transition hover:bg-sky-800 shadow-md"
+                >
+                  Consultar un trabajo <Icon name="arrow" className="h-4 w-4" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* SECTOR DE PREGUNTAS */}
       <section
         id="preguntas"
         className="scroll-mt-20 border-y border-sky-100 bg-white px-5 py-20 lg:px-8 lg:py-28"
@@ -773,7 +829,7 @@ export default function App() {
               Contacto
             </p>
             <div className="mt-4 space-y-3 text-sm text-sky-100/70">
-              <p>Av. Principal 1234</p>
+              <p>Calle 115 1736, Berazategui Oeste</p>
               <p>Buenos Aires, Argentina</p>
               <p>+54 9 11 2345-6789</p>
             </div>
