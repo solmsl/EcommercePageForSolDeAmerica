@@ -115,7 +115,7 @@ export const services = [
 export const faqs = [
   {
     q: "¿Cuánto demora una compostura?",
-    a: "La mayoría de los trabajos se entregan entre 48 y 72 horas. También contamos con reparaciones express según el tipo de trabajo.",
+    a: "La mayoría de los trabajos se entregan con una demora de 1 o 2 días dependiendo su complejidad. También contamos con reparaciones express según el tipo de trabajo.",
   },
   {
     q: "¿Puedo pedir presupuesto por WhatsApp?",

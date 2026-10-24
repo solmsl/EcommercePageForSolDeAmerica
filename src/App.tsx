@@ -377,7 +377,7 @@ export default function App() {
 
       <section
         id="productos"
-        className="scroll-mt-24 px-5 pt-[75px] pb-[62px] lg:px-8 lg:py-28"
+        className="scroll-mt-24 px-5 pt-[75px] pb-[62px] lg:px-8 lg:py-26"
       >
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
@@ -489,7 +489,7 @@ export default function App() {
 
       <section
         id="servicios"
-        className="scroll-mt-20 bg-sky-50 px-5 py-20 lg:px-8 lg:py-28"
+        className="scroll-mt-20 bg-sky-50 px-5 py-20 lg:px-8 lg:py-26"
       >
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between gap-6">
@@ -566,7 +566,7 @@ export default function App() {
       </section>
 
       {/* sector sobre nosotros */}
-      <section className="px-5 py-20 lg:px-8 lg:py-28">
+      <section className="px-5 py-20 lg:px-8 lg:py-18">
         <div className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-sky-50 p-8 sm:p-14 lg:p-16">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
             {/* Columna izquierda: Texto descriptivo principal */}
@@ -600,49 +600,138 @@ export default function App() {
               </ul>
 
               {/* Tira compacta solo de iconos limpios separados por barras verticales */}
-              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 py-3 px-6 rounded-2xl bg-white border border-sky-100 shadow-sm text-sky-700">
-                
-                {/* Zapatilla */}
-                <div title="Zapatilla" className="transition hover:scale-110">
-                  <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M3 14c0-1.1.9-2 2-2h1.2l2.3-4.6A2 2 0 0 1 13.4 6h4.1c1.6 0 3 1.3 3 3v2h1.5a1.5 1.5 0 0 1 0 3H3z"/></svg>
-                </div>
-                <span className="text-slate-300 font-light">|</span>
+              <div className="mx-auto flex w-full max-w-xl items-center justify-between py-3 text-sky-700">
+                <span role="img" aria-label="Zapato" title="Zapato">
+                  <svg
+                    className="h-5 w-5 sm:h-7 sm:w-7"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M3 14.5c4.2 0 5.5-1.5 6.2-6l3.4 1.2c1.3 3.2 3.7 4.4 7.7 4.8l.7 3.5H5a2 2 0 0 1-2-2v-1.5Z" />
+                    <path d="M11.5 11.5h3M13.5 13.5h3" />
+                  </svg>
+                </span>
+                <span className="h-6 w-px bg-sky-300/70 sm:h-8" aria-hidden="true" />
 
-                {/* Mochila */}
-                <div title="Mochila" className="transition hover:scale-110">
-                  <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M9 3a2 2 0 0 0-2 2v1H5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2V5a2 2 0 0 0-2-2H9zm2 2h2v1h-2V5zm-6 4h14v11H5V9z"/></svg>
-                </div>
-                <span className="text-slate-300 font-light">|</span>
+                <span role="img" aria-label="Cartera" title="Cartera">
+                  <svg
+                    className="h-5 w-5 sm:h-7 sm:w-7"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="3" y="8" width="18" height="12" rx="2.5" />
+                    <path d="M8 8V6a4 4 0 0 1 8 0v2M3 12h18M12 12v3" />
+                  </svg>
+                </span>
+                <span className="h-6 w-px bg-sky-300/70 sm:h-8" aria-hidden="true" />
 
-                {/* Cartera */}
-                <div title="Cartera" className="transition hover:scale-110">
-                  <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M4 8h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2zm2-3a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v1H6V5z"/></svg>
-                </div>
-                <span className="text-slate-300 font-light">|</span>
+                <span role="img" aria-label="Mochila" title="Mochila">
+                  <svg
+                    className="h-5 w-5 sm:h-7 sm:w-7"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M7 8V6a5 5 0 0 1 10 0v2M6 8h12a2 2 0 0 1 2 2v10H4V10a2 2 0 0 1 2-2Z" />
+                    <path d="M8 13h8v5H8zM4 12H2v5h2M20 12h2v5h-2" />
+                  </svg>
+                </span>
+                <span className="h-6 w-px bg-sky-300/70 sm:h-8" aria-hidden="true" />
 
-                {/* Ojota */}
-                <div title="Ojota" className="transition hover:scale-110">
-                  <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v6.5a4.5 4.5 0 1 0 6 0V5a3 3 0 0 0-3-3zm1 14.5a2.5 2.5 0 1 1-2 0V12h2z"/></svg>
-                </div>
-                <span className="text-slate-300 font-light">|</span>
+                <span role="img" aria-label="Ojota" title="Ojota">
+                  <svg
+                    className="h-5 w-5 sm:h-7 sm:w-7"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M12 2c3 0 5 3.3 5 8.5S15.3 22 12 22 7 16.2 7 10.5 9 2 12 2Z" />
+                    <path d="M12 11V7M12 11 8.5 14M12 11l3.5 3" />
+                  </svg>
+                </span>
+                <span className="h-6 w-px bg-sky-300/70 sm:h-8" aria-hidden="true" />
 
-                {/* Llave de hogar */}
-                <div title="Llave" className="transition hover:scale-110">
-                  <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 8-8m-2 2 2 2m-5 1 2 2"/></svg>
-                </div>
-                <span className="text-slate-300 font-light">|</span>
+                <span role="img" aria-label="Llave de hogar" title="Llave de hogar">
+                  <svg
+                    className="h-5 w-5 sm:h-7 sm:w-7"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="m3 9 5-4 5 4v6H3V9ZM6 15v4h4v-4" />
+                    <path d="M13 12h8M18 12v3M15.5 12v2" />
+                  </svg>
+                </span>
+                <span className="h-6 w-px bg-sky-300/70 sm:h-8" aria-hidden="true" />
 
-                {/* Llave de auto con control */}
-                <div title="Llave de auto" className="transition hover:scale-110">
-                  <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 3a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm4 12H8v-2h8v2zm0-4H8v-2h8v2z"/></svg>
-                </div>
-                <span className="text-slate-300 font-light">|</span>
+                <span role="img" aria-label="Candado" title="Candado">
+                  <svg
+                    className="h-5 w-5 sm:h-7 sm:w-7"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="4" y="10" width="16" height="11" rx="2" />
+                    <path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3" />
+                  </svg>
+                </span>
+                <span className="h-6 w-px bg-sky-300/70 sm:h-8" aria-hidden="true" />
 
-                {/* Impresora */}
-                <div title="Impresora" className="transition hover:scale-110">
-                  <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M6 3h12a2 2 0 0 1 2 2v3H4V5a2 2 0 0 1 2-2zm14 8H4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h2v3h12v-3h2a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2zm-3 8H7v-4h10v4z"/></svg>
-                </div>
+                <span
+                  role="img"
+                  aria-label="Llave codificada de auto"
+                  title="Llave codificada de auto"
+                >
+                  <svg
+                    className="h-5 w-5 sm:h-7 sm:w-7"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="3" y="3" width="10" height="14" rx="3" />
+                    <circle cx="8" cy="8" r="1.5" />
+                    <path d="M8 13h.01M13 14l8 7M15 16l2-2M18 19l2-2" />
+                  </svg>
+                </span>
+                <span className="h-6 w-px bg-sky-300/70 sm:h-8" aria-hidden="true" />
 
+                <span role="img" aria-label="Impresora" title="Impresora">
+                  <svg
+                    className="h-5 w-5 sm:h-7 sm:w-7"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                    <path d="M6 15h12v6H6zM18 12h.01" />
+                  </svg>
+                </span>
               </div>
 
               {/* Botón centrado perfectamente debajo de la barra de iconos */}
@@ -664,15 +753,23 @@ export default function App() {
       {/* SECTOR DE PREGUNTAS */}
       <section
         id="preguntas"
-        className="scroll-mt-20 border-y border-sky-100 bg-white px-5 py-20 lg:px-8 lg:py-28"
+        className="scroll-mt-20 border-y border-sky-100 bg-white px-5 py-18 lg:px-8 lg:py-26"
       >
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
           <div>
             <p className="section-kicker">Antes de visitarnos</p>
             <h2 className="section-title">Preguntas frecuentes</h2>
-            <p className="mt-5 text-sm leading-7 text-slate-500">
-              ¿No encontrás lo que buscás? Escribinos y te respondemos a la
-              brevedad.
+            <p className="mt-5 text-sm leading-7 text-slate-700">
+              ¿No encontrás lo que buscás? {" "}
+            <a
+              href={waLink("Hola! Tengo una consulta sobre sus servicios.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent font-semibold text-[#2B8FD4] hover:underline"
+            >
+              Escribinos por WhatsApp
+            </a>
+             {" "} y te respondemos a la brevedad.
             </p>
           </div>
           <div className="divide-y divide-slate-200 border-t border-slate-200">
@@ -692,7 +789,7 @@ export default function App() {
                   </span>
                 </button>
                 {openFaq === index && (
-                  <p className="max-w-2xl pb-6 text-sm leading-7 text-slate-500">
+                  <p className="max-w-2xl pb-6 text-sm leading-7 text-slate-900">
                     {faq.a}
                   </p>
                 )}
@@ -702,19 +799,21 @@ export default function App() {
         </div>
       </section>
 
+      {/* FORMULARIO CONTACTO */}
       <section
         id="contacto"
-        className="scroll-mt-20 bg-sky-50 px-5 py-20 lg:px-8 lg:py-28"
+        className="scroll-mt-20 bg-sky-50 px-5 pt-14 pb-8 lg:px-8 lg:pt-20 lg:pb-9"
       >
+        <p className="text-[#082f49] text-[clamp(2.25rem,5vw,4rem)] font-extrabold tracking-[-0.055em] leading-[1.02] mb-8 text-center">Contacto</p>
         <div className="mx-auto grid max-w-7xl overflow-hidden rounded-[2rem] bg-white shadow-xl shadow-sky-950/5 lg:grid-cols-2">
           <div className="bg-sky-500 p-8 text-white sm:p-12 lg:p-16">
-            <p className="text-xs font-bold tracking-[0.2em] text-sky-950 uppercase">
-              Hablemos
-            </p>
-            <h2 className="mt-3 text-4xl font-black tracking-[-0.045em] sm:text-5xl">
+            {/* <p className="text-xs font-bold tracking-[0.2em] text-sky-950 uppercase">
+              Contacto
+            </p> */}
+            <h2 className="mt-3 text-3xl font-black tracking-[-0.045em] text-center lg:text-left sm:text-5xl">
               ¿En qué podemos ayudarte?
             </h2>
-            <p className="mt-5 max-w-md text-sm leading-7 text-sky-950/75">
+            <p className="mt-5 max-w-md text-sm leading-7 text-sky-950 text-center lg:text-left">
               Contanos qué necesitás. Al enviar el formulario se abrirá WhatsApp
               con tu consulta lista para enviar.
             </p>
@@ -723,8 +822,8 @@ export default function App() {
                 <Icon name="map" className="mt-0.5 h-5 w-5 text-sky-950" />
                 <div>
                   <p className="font-bold">Nuestro local</p>
-                  <p className="mt-1 text-sm text-sky-950/70">
-                    Av. Principal 1234, Buenos Aires
+                  <p className="mt-1 text-sm text-sky-950 font-bold">
+                    Calle 115 1736 Berazategui Oeste, Buenos Aires
                   </p>
                 </div>
               </div>
@@ -732,8 +831,11 @@ export default function App() {
                 <Icon name="clock" className="mt-0.5 h-5 w-5 text-sky-950" />
                 <div>
                   <p className="font-bold">Horarios</p>
-                  <p className="mt-1 text-sm text-sky-950/70">
-                    Lun a Vie 9:00–19:00 · Sáb 9:00–13:30
+                  <p className="mt-1 text-sm text-sky-950 font-bold">
+                    Lun a Vie de 9:00–13:30 y de 17:00-20:30
+                  </p>
+                  <p className="mt-1 text-sm text-sky-950 font-bold">
+                    Sáb 10:00–14:00 y de 17:00-20:00.
                   </p>
                 </div>
               </div>
@@ -741,8 +843,8 @@ export default function App() {
                 <Icon name="phone" className="mt-0.5 h-5 w-5 text-sky-950" />
                 <div>
                   <p className="font-bold">WhatsApp</p>
-                  <p className="mt-1 text-sm text-sky-950/70">
-                    +54 9 11 2345-6789
+                  <p className="mt-1 text-sm text-sky-950 font-bold">
+                    +54 9 11 2192-8109
                   </p>
                 </div>
               </div>
@@ -763,11 +865,11 @@ export default function App() {
                 Servicio
                 <select name="servicio" className="form-input">
                   <option>Compostura de calzado</option>
-                  <option>Restauración y limpieza</option>
                   <option>Carteras y mochilas</option>
                   <option>Duplicado de llaves</option>
                   <option>Cerrajería</option>
                   <option>Consulta por un producto</option>
+                  <option>Trabajos en General</option>
                 </select>
               </label>
               <label className="form-label">
@@ -781,13 +883,119 @@ export default function App() {
                 />
               </label>
               <button className="mt-2 flex h-13 items-center justify-center gap-3 rounded-full bg-sky-950 text-sm font-bold text-white transition hover:bg-sky-800">
-                <Icon name="whatsapp" className="h-5 w-5" /> Enviar por WhatsApp
+                <Icon
+                  name="whatsapp"
+                  className="h-5 w-5 fill-current stroke-none"
+                />
+                Enviar por WhatsApp
               </button>
             </div>
           </form>
         </div>
       </section>
 
+      {/* Sección de Redes Sociales */}
+      <section className="bg-sky-50 pb-5 px-5 ">
+        <div className="mx-auto max-w-5xl pt-10 pb-26 text-center">
+          <h3 className="mb-12 text-4xl font-extrabold tracking-tight text-[#082f49] sm:text-5xl">
+            Nuestras Redes
+          </h3>
+          <div className="grid grid-cols-2 items-start justify-center gap-x-4 gap-y-8 sm:grid-cols-4 sm:gap-8">
+            {/* WhatsApp */}
+            <a
+              href="https://wa.me/5491121928109"
+              target="_blank"
+              rel="noreferrer"
+              className="group flex min-w-0 flex-col items-center transition hover:-translate-y-1"
+            >
+              <div className="grid h-16 w-16 place-items-center rounded-full bg-[#25D366] text-white shadow-md shadow-[#25D366]/20 transition group-hover:scale-105">
+                <Icon
+                  name="whatsapp"
+                  className="h-8 w-8 fill-current stroke-none"
+                />
+              </div>
+              <span className="mt-3 max-w-full text-[13px] leading-5 font-bold text-slate-700 group-hover:text-sky-900 sm:text-sm">
+                +54 9 11 2192-8109
+              </span>
+            </a>
+
+            {/* Instagram */}
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noreferrer"
+              className="group flex min-w-0 flex-col items-center transition hover:-translate-y-1"
+            >
+              <div className="grid h-16 w-16 place-items-center rounded-full bg-gradient-to-br from-[#833AB4] via-[#E1306C] to-[#FCAF45] text-white shadow-md shadow-[#E1306C]/20 transition group-hover:scale-105">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-8 w-8"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  aria-hidden="true"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                </svg>
+              </div>
+              <span className="mt-3 max-w-full text-[13px] leading-5 font-bold text-slate-700 group-hover:text-sky-900 sm:text-sm">
+                @soldeamerica115
+              </span>
+            </a>
+
+            {/* Facebook */}
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noreferrer"
+              className="group flex min-w-0 flex-col items-center transition hover:-translate-y-1"
+            >
+              <div className="grid h-16 w-16 place-items-center rounded-full bg-[#1877F2] text-white shadow-md shadow-[#1877F2]/20 transition group-hover:scale-105">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-9 w-9 fill-current"
+                  aria-hidden="true"
+                >
+                  <path d="M14.2 21v-8h2.7l.4-3.1h-3.1V8c0-.9.3-1.5 1.6-1.5h1.7V3.7c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2H8V13h2.8v8h3.4Z" />
+                </svg>
+              </div>
+              <span className="mt-3 max-w-full text-[13px] leading-5 font-bold text-slate-700 group-hover:text-sky-900 sm:text-sm">
+                Sol de América
+              </span>
+            </a>
+
+            {/* Correo Electrónico */}
+            <a
+              href="mailto:soldeamerica@gmail.com"
+              className="group flex min-w-0 flex-col items-center transition hover:-translate-y-1"
+            >
+              <div className="grid h-16 w-16 place-items-center rounded-full bg-white shadow-md shadow-slate-300/60 ring-1 ring-slate-200 transition group-hover:scale-105">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-9 w-9"
+                  fill="none"
+                  strokeWidth="2.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M4 7v11" stroke="#4285F4" />
+                  <path d="M20 7v11" stroke="#34A853" />
+                  <path d="M4 7l8 6 8-6" stroke="#EA4335" />
+                  <path d="M4 18h16" stroke="#FBBC04" />
+                </svg>
+              </div>
+              <span className="mt-3 max-w-full text-[12px] leading-5 font-bold text-slate-700 group-hover:text-sky-900 sm:text-sm">
+                <span className="block sm:inline">soldeamerica.zc</span>
+                <span className="block sm:inline">@gmail.com</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+      
       <footer className="bg-sky-950 px-5 pt-16 text-white lg:px-8">
         <div className="mx-auto grid max-w-7xl gap-10 pb-12 sm:grid-cols-2 lg:grid-cols-4">
           <div className="sm:col-span-2">
@@ -795,9 +1003,71 @@ export default function App() {
               SOL DE AMÉRICA
             </p>
             <p className="mt-4 max-w-sm text-sm leading-6 text-sky-100/60">
-              Zapatería y cerrajería de barrio. Oficio, confianza y soluciones
+              Zapatería, Cerrajería y más servicios. Oficio, confianza y soluciones
               para todos los días.
             </p>
+            <div className="mt-6 flex items-center gap-3">
+              <a
+                href="https://instagram.com/soldeamerica115"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram de Sol de América"
+                className="grid h-10 w-10 place-items-center rounded-full border border-sky-400/70 text-sky-300 transition hover:border-sky-300 hover:bg-sky-400 hover:text-sky-950"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  aria-hidden="true"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle
+                    cx="17.5"
+                    cy="6.5"
+                    r="1"
+                    fill="currentColor"
+                    stroke="none"
+                  />
+                </svg>
+              </a>
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Facebook de Sol de América"
+                className="grid h-10 w-10 place-items-center rounded-full border border-sky-400/70 text-sky-300 transition hover:border-sky-300 hover:bg-sky-400 hover:text-sky-950"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-5 w-5 fill-current"
+                  aria-hidden="true"
+                >
+                  <path d="M14.2 21v-8h2.7l.4-3.1h-3.1V8c0-.9.3-1.5 1.6-1.5h1.7V3.7c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2H8V13h2.8v8h3.4Z" />
+                </svg>
+              </a>
+              <a
+                href="mailto:soldeamerica.zc@gmail.com"
+                aria-label="Correo electrónico de Sol de América"
+                className="grid h-10 w-10 place-items-center rounded-full border border-sky-400/70 text-sky-300 transition hover:border-sky-300 hover:bg-sky-400 hover:text-sky-950"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <path d="m4 7 8 6 8-6" />
+                </svg>
+              </a>
+            </div>
           </div>
           <div>
             <p className="text-xs font-bold tracking-[0.15em] text-sky-300 uppercase">
@@ -831,11 +1101,11 @@ export default function App() {
             <div className="mt-4 space-y-3 text-sm text-sky-100/70">
               <p>Calle 115 1736, Berazategui Oeste</p>
               <p>Buenos Aires, Argentina</p>
-              <p>+54 9 11 2345-6789</p>
+              <p>+54 9 11 2192-8109</p>
             </div>
           </div>
         </div>
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 border-t border-white/10 py-6 text-[11px] text-sky-100/40 sm:flex-row sm:justify-between">
+        <div className="mx-auto flex max-w-7xl flex-col gap-2 border-t border-white/10 py-6 text-[11px] text-sky-100/80 sm:flex-row sm:justify-between">
           <p>© 2026 Sol De América. Todos los derechos reservados.</p>
           <p>Hecho con dedicación, como cada reparación.</p>
         </div>
@@ -932,7 +1202,11 @@ export default function App() {
                   onClick={checkout}
                   className="flex h-13 w-full items-center justify-center gap-2 rounded-full bg-[#25D366] text-sm font-bold text-white"
                 >
-                  <Icon name="whatsapp" /> Consultar pedido
+                  <Icon
+                    name="whatsapp"
+                    className="h-5 w-5 fill-current stroke-none"
+                  />
+                  Consultar pedido
                 </button>
               </div>
             )}
