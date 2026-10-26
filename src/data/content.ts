@@ -22,24 +22,71 @@ export const slides = [
   },
 ]
 
-export const products = [
+export interface Product {
+  id: number
+  code: string
+  name: string
+  category: string
+  price: number
+  image: string
+  images: string[]
+  tag?: string
+  stock: number
+  colors: string[]
+  description: string
+  features: string[]
+}
+
+export const products: Product[] = [
   {
     id: 1,
+    code: "SDA-CAL-001",
     name: "Plantillas confort premium",
     category: "Calzado",
     price: 8900,
     image:
       "https://images.unsplash.com/photo-1550998358-08b4f83dc345?auto=format&fit=crop&w=700&q=82",
+    images: [
+      "https://images.unsplash.com/photo-1550998358-08b4f83dc345?auto=format&fit=crop&w=1200&q=88",
+      "https://images.unsplash.com/photo-1662135426497-eaa054ba53a3?auto=format&fit=crop&w=1200&q=88",
+      "https://images.unsplash.com/photo-1591940704483-683982102b36?auto=format&fit=crop&w=1200&q=88",
+    ],
     tag: "Más vendido",
+    stock: 18,
+    colors: ["Negro", "Beige"],
+    description:
+      "Plantillas acolchadas para uso diario, pensadas para mejorar el apoyo y reducir el cansancio al caminar.",
+    features: [
+      "Espuma de alta densidad",
+      "Recortables para adaptar al calzado",
+      "Superficie respirable",
+      "Aptas para calzado urbano y laboral",
+    ],
   },
   {
     id: 2,
+    code: "SDA-CUI-002",
     name: "Kit de limpieza para cuero",
     category: "Cuidado",
     price: 12800,
     image:
       "https://images.unsplash.com/photo-1577467013350-7c22a844e1a9?auto=format&fit=crop&w=700&q=82",
+    images: [
+      "https://images.unsplash.com/photo-1577467013350-7c22a844e1a9?auto=format&fit=crop&w=1200&q=88",
+      "https://images.unsplash.com/photo-1653868249587-284b275a1c67?auto=format&fit=crop&w=1200&q=88",
+      "https://images.unsplash.com/photo-1653869225353-8101df710ff4?auto=format&fit=crop&w=1200&q=88",
+    ],
     tag: "Nuevo",
+    stock: 11,
+    colors: ["Neutro", "Negro", "Marrón"],
+    description:
+      "Un set completo para limpiar, nutrir y proteger zapatos, botas, carteras y otros artículos de cuero.",
+    features: [
+      "Crema nutritiva para cuero",
+      "Cepillo aplicador",
+      "Paño de terminación",
+      "Presentación lista para regalar",
+    ],
   },
   // {
   //   id: 3,
@@ -52,12 +99,28 @@ export const products = [
   // },
   {
     id: 4,
+    code: "SDA-CER-004",
     name: "Candado de seguridad 50 mm",
     category: "Cerrajería",
     price: 15900,
     image:
       "https://images.unsplash.com/photo-1758351507272-aa6929fe997e?auto=format&fit=crop&w=700&q=82",
+    images: [
+      "https://images.unsplash.com/photo-1758351507272-aa6929fe997e?auto=format&fit=crop&w=1200&q=88",
+      "https://images.unsplash.com/photo-1555529902-5261145633bf?auto=format&fit=crop&w=1200&q=88",
+      "https://images.unsplash.com/photo-1635602739175-bab409a6e94c?auto=format&fit=crop&w=1200&q=88",
+    ],
     tag: "Stock limitado",
+    stock: 5,
+    colors: ["Bronce", "Plateado"],
+    description:
+      "Candado reforzado para portones, depósitos y usos generales que requieren mayor resistencia.",
+    features: [
+      "Cuerpo metálico de 50 mm",
+      "Arco de acero reforzado",
+      "Incluye juego de llaves",
+      "Uso interior y exterior cubierto",
+    ],
   },
   // {
   //   id: 5,
@@ -70,12 +133,28 @@ export const products = [
   // },
   {
     id: 6,
+    code: "SDA-CER-006",
     name: "Cilindro de seguridad reforzado",
     category: "Cerrajería",
     price: 28500,
     image:
       "https://images.unsplash.com/photo-1756341782434-3020b9d17372?auto=format&fit=crop&w=700&q=82",
+    images: [
+      "https://images.unsplash.com/photo-1756341782434-3020b9d17372?auto=format&fit=crop&w=1200&q=88",
+      "https://images.unsplash.com/photo-1585914641050-fa9883c4e21c?auto=format&fit=crop&w=1200&q=88",
+      "https://images.unsplash.com/photo-1677951570313-b0750351c461?auto=format&fit=crop&w=1200&q=88",
+    ],
     tag: "Stock limitado",
+    stock: 4,
+    colors: ["Niquelado", "Bronce"],
+    description:
+      "Cilindro reforzado para renovar la seguridad de puertas residenciales y comerciales.",
+    features: [
+      "Construcción metálica reforzada",
+      "Incluye tres llaves",
+      "Compatible con cerraduras estándar",
+      "Instalación disponible en el local",
+    ],
   },
 ]
 

@@ -1,6 +1,10 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react"
+import { Link, matchPath, useLocation, useNavigate } from "react-router"
 import Icon, { type IconName } from "./components/Icon"
 import { faqs, products, services, slides } from "./data/content"
+import ProductoDetalle from "./seccions/ProductoDetalle"
+import ProductosSection from "./seccions/Productos"
+import Servicios from "./seccions/Servicios"
 
 const WHATSAPP_NUMBER = "5491121928109"
 
@@ -17,6 +21,8 @@ function waLink(message: string) {
 }
 
 export default function App() {
+  const location = useLocation()
+  const navigate = useNavigate()
   const [slide, setSlide] = useState(0)
   const [category, setCategory] = useState("Todos")
   const [search, setSearch] = useState("")
@@ -65,10 +71,33 @@ export default function App() {
     (sum, product) => sum + product.price,
     0,
   )
+  const productRoute = matchPath(
+    { path: "/productos/:productId", end: true },
+    location.pathname,
+  )
+  const selectedProduct = products.find(
+    (product) => product.id === Number(productRoute?.params.productId),
+  )
 
   const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
     setMobileOpen(false)
+    setSearchOpen(false)
+
+    if (id === "productos" || id === "servicios") {
+      navigate(`/${id}`)
+      window.scrollTo({ top: 0, behavior: "smooth" })
+      return
+    }
+
+    const scrollToSection = () =>
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
+
+    if (location.pathname !== "/") {
+      navigate("/")
+      window.setTimeout(scrollToSection, 50)
+    } else {
+      scrollToSection()
+    }
   }
 
   const handleContact = (event: FormEvent<HTMLFormElement>) => {
@@ -282,6 +311,32 @@ export default function App() {
         )}
       </header>
 
+      {productRoute ? (
+        <ProductoDetalle
+          product={selectedProduct}
+          formatPrice={formatPrice}
+          onAddToCart={(productId, quantity) =>
+            setCart((items) => [
+              ...items,
+              ...Array.from({ length: quantity }, () => productId),
+            ])
+          }
+          consultationHref={waLink(
+            `Hola, quisiera consultar por el producto ${selectedProduct?.code ?? ""} - ${selectedProduct?.name ?? ""}.`,
+          )}
+        />
+      ) : location.pathname === "/productos" ? (
+        <ProductosSection
+          products={products}
+          onAddToCart={(productId) =>
+            setCart((items) => [...items, productId])
+          }
+          formatPrice={formatPrice}
+        />
+      ) : location.pathname === "/servicios" ? (
+        <Servicios services={services} createWhatsAppLink={waLink} />
+      ) : (
+        <>
       <section
         id="inicio"
         className="relative h-[600px] overflow-hidden sm:h-[680px]"
@@ -355,7 +410,7 @@ export default function App() {
       </section>
 
       <section className="border-b border-sky-100 bg-sky-50">
-        <div className="mx-auto grid max-w-7xl gap-4 px-5 py-6 sm:grid-cols-3 lg:px-8">
+        <div className="mx-auto grid max-w-7xl justify-items-center gap-4 px-8 py-6 sm:grid-cols-3 lg:px-8">
           {[
             ["check", "Trabajo garantizado", "Cuidamos cada detalle"],
             ["clock", "Atención rápida", "Consultá por trabajos en el día"],
@@ -363,9 +418,12 @@ export default function App() {
           ].map(([icon, title, text]) => (
             <div
               key={title}
-              className="flex items-center gap-4 sm:justify-center"
+              className="grid w-full max-w-[280px] grid-cols-[24px_minmax(0,1fr)] items-center gap-3 sm:flex sm:max-w-none sm:justify-center sm:gap-4"
             >
-              <Icon name={icon as IconName} className="h-6 w-6 text-sky-500" />
+              <Icon
+                name={icon as IconName}
+                className="h-6 w-6 shrink-0 text-sky-500"
+              />
               <div>
                 <p className="text-sm font-bold text-sky-950">{title}</p>
                 <p className="text-xs text-slate-500">{text}</p>
@@ -431,14 +489,19 @@ export default function App() {
                     loading="lazy"
                     decoding="async"
                   />
+                  <Link
+                    to={`/productos/${product.id}`}
+                    className="absolute inset-0 z-10"
+                    aria-label={`Ver ${product.name}`}
+                  />
                   {product.tag && (
-                    <span className="absolute top-4 left-4 rounded-full bg-white px-3 py-1.5 text-[10px] font-extrabold tracking-wide text-sky-950 uppercase shadow-sm">
+                    <span className="absolute top-4 left-4 z-20 rounded-full bg-white px-3 py-1.5 text-[10px] font-extrabold tracking-wide text-sky-950 uppercase shadow-sm">
                       {product.tag}
                     </span>
                   )}
                   <button
                     onClick={() => setCart((items) => [...items, product.id])}
-                    className="absolute right-4 bottom-4 left-4 hidden h-12 translate-y-3 items-center justify-center gap-2 rounded-full bg-sky-950 text-sm font-bold text-white opacity-0 shadow-lg transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 focus:translate-y-0 focus:opacity-100 sm:flex"
+                    className="absolute right-4 bottom-4 left-4 z-20 hidden h-12 translate-y-3 items-center justify-center gap-2 rounded-full bg-sky-950 text-sm font-bold text-white opacity-0 shadow-lg transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 focus:translate-y-0 focus:opacity-100 sm:flex"
                   >
                     <Icon name="bag" className="h-4 w-4" /> Agregar al carrito
                   </button>
@@ -447,11 +510,13 @@ export default function App() {
                   <p className="text-[10px] font-bold tracking-[0.15em] text-sky-500 uppercase">
                     {product.category}
                   </p>
-                  <div className="mt-1 flex items-start justify-between gap-4">
-                    <h3 className="font-semibold text-slate-800">
+                  <div className="mt-1">
+                    <h3 className="font-semibold text-slate-800 transition hover:text-sky-600">
+                      <Link to={`/productos/${product.id}`}>
                       {product.name}
+                      </Link>
                     </h3>
-                    <p className="shrink-0 font-extrabold text-sky-950">
+                    <p className="mt-1 font-extrabold text-sky-950">
                       {formatPrice(product.price)}
                     </p>
                   </div>
@@ -472,17 +537,13 @@ export default function App() {
             </p>
           )}
           <div className="mt-12 flex justify-center">
-            <a
-              href={waLink(
-                "Hola, quisiera ver todos los productos disponibles.",
-              )}
-              target="_blank"
-              rel="noreferrer"
+            <Link
+              to="/productos"
               className="inline-flex h-12 items-center gap-2 rounded-full bg-sky-950 px-6 text-sm font-bold text-white transition hover:bg-sky-800"
             >
               Ver todos los productos
               <Icon name="arrow" className="h-4 w-4" />
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -499,17 +560,13 @@ export default function App() {
                 Todo lo que necesitás en un solo lugar.
               </h2>
             </div>
-            <a
-              href={waLink(
-                "Hola, quisiera consultar por todos los servicios disponibles.",
-              )}
-              target="_blank"
-              rel="noreferrer"
+            <Link
+              to="/servicios"
               className="mb-1 hidden shrink-0 items-center gap-2 text-sm font-bold text-sky-950 transition hover:text-sky-600 sm:flex"
             >
               Ver todos
               <Icon name="arrow" className="h-4 w-4" />
-            </a>
+            </Link>
           </div>
 
           <div className="-mx-5 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-3 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-5">
@@ -551,17 +608,13 @@ export default function App() {
             )}
           </div>
 
-          <a
-            href={waLink(
-              "Hola, quisiera consultar por todos los servicios disponibles.",
-            )}
-            target="_blank"
-            rel="noreferrer"
+          <Link
+            to="/servicios"
             className="mx-auto mt-7 flex w-fit items-center gap-2 text-sm font-bold text-sky-950 sm:hidden"
           >
             Ver todos
             <Icon name="arrow" className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -995,6 +1048,8 @@ export default function App() {
           </div>
         </div>
       </section>
+        </>
+      )}
       
       <footer className="bg-sky-950 px-5 pt-16 text-white lg:px-8">
         <div className="mx-auto grid max-w-7xl gap-10 pb-12 sm:grid-cols-2 lg:grid-cols-4">
