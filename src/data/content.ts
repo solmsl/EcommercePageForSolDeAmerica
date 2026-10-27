@@ -134,7 +134,7 @@ export const products: Product[] = [
   {
     id: 6,
     code: "SDA-CER-006",
-    name: "Cilindro de seguridad reforzado",
+    name: "Ciliindro de seguridad reforzado",
     category: "Cerrajería",
     price: 28500,
     image:
