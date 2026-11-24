@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router"
 import Site from "../App"
+import IniciarSesion from "../seccions/IniciarSesion"
+import Registro from "../seccions/Registro"
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +19,14 @@ export const router = createBrowserRouter([
   {
     path: "/servicios",
     Component: Site,
+  },
+  {
+    path: "/iniciar-sesion",
+    Component: IniciarSesion,
+  },
+  {
+    path: "/registro",
+    Component: Registro,
   },
   {
     path: "*",
