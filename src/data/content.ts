@@ -156,6 +156,31 @@ export const products: Product[] = [
       "Instalación disponible en el local",
     ],
   },
+  {
+    id: 8,
+    code: "SDA-CER-006",
+    name: "Cilindro de seguridad reforzado 2",
+    category: "Cerrajería",
+    price: 27500,
+    image:
+      "https://images.unsplash.com/photo-1756341782434-3020b9d17372?auto=format&fit=crop&w=700&q=82",
+    images: [
+      "https://images.unsplash.com/photo-1756341782434-3020b9d17372?auto=format&fit=crop&w=1200&q=88",
+      "https://images.unsplash.com/photo-1585914641050-fa9883c4e21c?auto=format&fit=crop&w=1200&q=88",
+      "https://images.unsplash.com/photo-1677951570313-b0750351c461?auto=format&fit=crop&w=1200&q=88",
+    ],
+    tag: "Stock limitado",
+    stock: 2,
+    colors: ["Niquelado", "Bronce"],
+    description:
+      "Cilindro reforzado para renovar la seguridad de puertas residenciales y comerciales.",
+    features: [
+      "Construcción metálica reforzada",
+      "Incluye tres llaves",
+      "Compatible con cerraduras estándar",
+      "Instalación disponible en el local",
+    ],
+  },
 ]
 
 export const services = [
