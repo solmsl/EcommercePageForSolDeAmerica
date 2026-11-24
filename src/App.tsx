@@ -149,6 +149,18 @@ export default function App() {
     return () => window.clearInterval(timer)
   }, [])
 
+  useEffect(() => {
+    if (!location.hash) return
+
+    const frame = window.requestAnimationFrame(() => {
+      document
+        .getElementById(location.hash.slice(1))
+        ?.scrollIntoView({ behavior: "smooth" })
+    })
+
+    return () => window.cancelAnimationFrame(frame)
+  }, [location.pathname, location.hash])
+
   const filteredProducts = useMemo(
     () =>
       products.filter(
@@ -465,7 +477,7 @@ export default function App() {
           formatPrice={formatPrice}
         />
       ) : location.pathname === "/servicios" ? (
-        <Servicios services={services} onContactSubmit={handleContact} />
+        <Servicios services={services} />
       ) : (
         <>
           <section
