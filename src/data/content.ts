@@ -134,7 +134,7 @@ export const products: Product[] = [
   {
     id: 6,
     code: "SDA-CER-006",
-    name: "Cilindro de seguridad reforzado",
+    name: "Ciliinnndro de seguridad reforzado",
     category: "Cerrajería",
     price: 28500,
     image:
@@ -155,6 +155,67 @@ export const products: Product[] = [
       "Compatible con cerraduras estándar",
       "Instalación disponible en el local",
     ],
+  },
+  {
+    id: 7,
+    code: "SDA-CER-007",
+    name: "Candado de seguridad reforzado 32 mm",
+    category: "Cerrajería",
+    price: 14500,
+    image:
+      "https://images.unsplash.com/photo-1756341782434-3020b9d17372?auto=format&fit=crop&w=700&q=82",
+    images: [
+      "https://images.unsplash.com/photo-1756341782434-3020b9d17372?auto=format&fit=crop&w=1200&q=88",
+      "https://images.unsplash.com/photo-1585914641050-fa9883c4e21c?auto=format&fit=crop&w=1200&q=88",
+      "https://images.unsplash.com/photo-1677951570313-b0750351c461?auto=format&fit=crop&w=1200&q=88",
+    ],
+    tag: "",
+    stock: 3,
+    colors: ["Niquelado", "Bronce"],
+    description:
+      "Candado reforzado para renovar la seguridad de puertas residenciales y comerciales.",
+    features: [
+      "Construcción metálica reforzada",
+      "Incluye 2 llaves",
+      "Compatible con cerraduras estándar",
+      "Instalación disponible en el local",
+    ],
+  },
+]
+
+export const featuredProductIds = [1, 2, 4, 6]
+
+export const designerTestimonial = {
+  author: "Sofi Martire",
+  role: "Diseñadora y autora de la nota",
+  title: "Compostura de calzados y mochilas: Sol de América",
+  quote:
+    "Los arreglos van más allá de una simple solución temporal; el objetivo es devolver la funcionalidad y la estética original a cada pieza.",
+  supportingQuotes: [
+    'Los clientes reportan que los artículos reparados, especialmente las botas, quedan "como nuevos".',
+    "La habilidad para trabajar con distintos materiales y tipos de calzado, como botas y botines, zapatillas urbanas o zapatos formales, demuestra una versatilidad profesional notable.",
+  ],
+  url: "https://sofimartire.com.ar/zapateria/compostura-de-calzados-y-mochilas-sol-de-america/",
+}
+
+export const customerReviews = [
+  {
+    name: "María G.",
+    service: "Compostura de calzado",
+    quote:
+      "Dejé unas botas que pensaba que ya no tenían arreglo y quedaron impecables. Me explicaron todo antes de empezar y cumplieron con el tiempo de entrega.",
+  },
+  {
+    name: "Carlos R.",
+    service: "Cerrajería",
+    quote:
+      "Excelente atención y mucha paciencia. Me hicieron las copias de las llaves en el momento y funcionaron perfecto.",
+  },
+  {
+    name: "Lucía M.",
+    service: "Atención en el local",
+    quote:
+      "Siempre encuentro una solución y me atienden con muy buena predisposición. Es un local de confianza al que vuelvo cada vez que lo necesito.",
   },
 ]
 
@@ -188,6 +249,125 @@ export const services = [
     text: "Carga de saldo para tu tarjeta SUBE.",
     image:
       "https://images.unsplash.com/photo-1632276536839-84cad7fd03b0?auto=format&fit=crop&w=700&q=82",
+  },
+]
+
+// Detalle público de los trabajos descritos en el sitio y en la reseña del taller.
+export const serviceDetails = [
+  {
+    title: "Zapatería",
+    introduction:
+      "Reparamos calzado y artículos de marroquinería para recuperar su uso, su forma y su terminación.",
+    jobs: [
+      {
+        title: "Cambio de suela",
+        description:
+          "Cambiamos la suela rota o gastada de tu calzado por una nueva, según el material y el estado de la pieza.",
+      },
+      {
+        title: "Reparación de costuras",
+        description:
+          "Reparamos costuras abiertas o descosidas en zapatos, zapatillas, botas y botines.",
+      },
+      {
+        title: "Restauración y cuidado",
+        description:
+          "Trabajamos sobre el calzado deteriorado para recuperar su funcionalidad y mejorar su acabado, evaluando cada reparación.",
+      },
+      {
+        title: "Cierres de mochilas y carteras",
+        description:
+          "Reparamos o reemplazamos cierres dañados para que puedas volver a usar tus artículos.",
+      },
+      {
+        title: "Correas, manijas y costuras",
+        description:
+          "Reforzamos y reparamos correas y costuras descosidas en mochilas y carteras.",
+      },
+      {
+        title: "Desgarros y roturas",
+        description:
+          "Evaluamos y reparamos roturas en la tela o el material de mochilas y otros artículos de marroquinería.",
+      },
+    ],
+  },
+  {
+    title: "Cerrajería del Hogar",
+    introduction:
+      "Trabajos de cerrajería para recuperar el acceso y mantener en funcionamiento las cerraduras de tu hogar.",
+    jobs: [
+      {
+        title: "Copias de llaves de hogar",
+        description:
+          "Duplicamos llaves de puertas del hogar a partir de tu llave original, según el modelo.",
+      },
+      {
+        title: "Copias de llaves de candados",
+        description:
+          "Hacemos duplicados de llaves de candados para que tengas una copia de respaldo.",
+      },
+      {
+        title: "Llaves de muebles y modelos especiales",
+        description:
+          "Realizamos copias de llaves de muebles y distintos modelos especiales, previa verificación de compatibilidad.",
+      },
+      {
+        title: "Cambios de combinación",
+        description:
+          "Modificamos la combinación de cerraduras compatibles para que funcionen con un nuevo juego de llaves.",
+      },
+      {
+        title: "Aperturas",
+        description:
+          "Evaluamos y realizamos aperturas de cerraduras según el tipo de mecanismo y el trabajo necesario.",
+      },
+    ],
+  },
+  {
+    title: "Cerrajería del Automotor",
+    introduction:
+      "Copias y soluciones para llaves de vehículos. La posibilidad de realizar el trabajo depende del tipo de llave y del modelo.",
+    jobs: [
+      {
+        title: "Copias de llaves de vehículos",
+        description:
+          "Realizamos duplicados de llaves de automotor compatibles con los modelos que trabajamos.",
+      },
+      {
+        title: "Evaluación de la llave",
+        description:
+          "Revisamos el tipo de llave y el vehículo para identificar la solución posible antes de realizar el trabajo.",
+      },
+    ],
+  },
+  {
+    title: "Impresiones",
+    introduction:
+      "Resolvé tus impresiones y copias de documentos en el mismo local.",
+    jobs: [
+      {
+        title: "Impresión de documentos",
+        description:
+          "Pasamos tus documentos a papel. El formato y las características de cada impresión se coordinan en el local.",
+      },
+      {
+        title: "Copias de documentos",
+        description:
+          "Hacemos copias en papel de tus documentos para trámites y necesidades de todos los días.",
+      },
+    ],
+  },
+  {
+    title: "SUBE",
+    introduction:
+      "Un servicio práctico para seguir viajando, disponible en nuestro local.",
+    jobs: [
+      {
+        title: "Carga de saldo",
+        description:
+          "Realizamos cargas de saldo en tu tarjeta SUBE. Acercate al local con tu tarjeta para cargarla.",
+      },
+    ],
   },
 ]
 
