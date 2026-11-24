@@ -22,14 +22,7 @@ export default function AccountShell({
           className="inline-flex items-center gap-3 rounded-full py-2 pr-4 text-sky-950 transition hover:text-sky-600"
           aria-label="Volver al inicio"
         >
-          <img
-            src={brandLogo}
-            alt="Logotipo de Sol de América"
-            className="h-10 w-14 object-contain"
-            width="56"
-            height="40"
-            decoding="async"
-          />
+          <img src={brandLogo} alt="" className="h-10 w-14 object-contain" />
           <span>
             <span className="block font-['Jersey_25'] text-xl leading-none">
               SOL DE AMÉRICA

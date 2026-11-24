@@ -1,4 +1,6 @@
+import type { FormEventHandler } from "react"
 import { Link } from "react-router"
+import ContactSection from "../components/ContactSection"
 import { serviceDetails } from "../data/content"
 
 interface Service {
@@ -7,7 +9,13 @@ interface Service {
   image: string
 }
 
-export default function Servicios({ services }: { services: Service[] }) {
+export default function Servicios({
+  services,
+  onContactSubmit,
+}: {
+  services: Service[]
+  onContactSubmit: FormEventHandler<HTMLFormElement>
+}) {
   return (
     <>
       <section className="bg-white px-5 pt-10 pb-12 lg:px-8 lg:pt-14 lg:pb-16">
@@ -109,24 +117,18 @@ export default function Servicios({ services }: { services: Service[] }) {
         </div>
       </section>
 
-      <div className="bg-sky-50 px-5 py-10 text-center lg:px-8 lg:py-14">
-        <div className="mx-auto max-w-3xl rounded-[2rem] border border-sky-100 bg-white px-6 py-9 shadow-lg shadow-sky-950/5 sm:px-10">
-          <p className="section-kicker">Cada trabajo es diferente</p>
-          <h2 className="mx-auto max-w-2xl text-2xl font-extrabold tracking-tight text-sky-950 sm:text-3xl">
-            ¿No encontraste lo que necesitás?
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-slate-600">
-            Esta guía reúne nuestros principales trabajos. Si tu reparación no
-            aparece en la lista, contanos qué necesitás y evaluamos cómo ayudarte.
-          </p>
-          <Link
-            to="/#contacto"
-            className="mx-auto mt-7 flex h-13 w-fit items-center gap-3 rounded-full bg-sky-950 px-7 text-sm font-bold text-white shadow-lg shadow-sky-950/10 transition hover:bg-sky-800"
-          >
-            Ir al formulario de contacto
-          </Link>
-        </div>
+      <div className="bg-sky-50 px-5 pt-6 text-center lg:px-8">
+        <p className="section-kicker">Cada trabajo es diferente</p>
+        <h2 className="mx-auto max-w-2xl text-2xl font-extrabold tracking-tight text-sky-950 sm:text-3xl">
+          ¿No encontraste lo que necesitás?
+        </h2>
+        <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-slate-600">
+          Esta guía reúne nuestros principales trabajos. Si tu reparación no
+          aparece en la lista, contanos qué necesitás en el formulario y
+          evaluamos cómo ayudarte.
+        </p>
       </div>
+      <ContactSection onSubmit={onContactSubmit} />
     </>
   )
 }

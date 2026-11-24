@@ -149,18 +149,6 @@ export default function App() {
     return () => window.clearInterval(timer)
   }, [])
 
-  useEffect(() => {
-    if (!location.hash) return
-
-    const frame = window.requestAnimationFrame(() => {
-      document
-        .getElementById(location.hash.slice(1))
-        ?.scrollIntoView({ behavior: "smooth" })
-    })
-
-    return () => window.cancelAnimationFrame(frame)
-  }, [location.pathname, location.hash])
-
   const filteredProducts = useMemo(
     () =>
       products.filter(
@@ -293,22 +281,26 @@ export default function App() {
         <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 lg:px-8">
           <button
             onClick={() => scrollTo("inicio")}
-            className="flex items-center gap-3 text-left"
+            className="grid grid-cols-[48px_auto] grid-rows-[auto_auto] items-center gap-x-1.5 gap-y-1 text-left sm:flex sm:gap-3"
             aria-label="Ir al inicio"
           >
-            <img
-              src={brandLogo}
-              alt="Logotipo de Sol de América"
-              className="h-10 w-14 shrink-0 object-contain sm:h-12 sm:w-16"
-              width="64"
-              height="48"
-              decoding="async"
-            />
-            <span>
-              <span className="block whitespace-nowrap font-['Jersey_25'] text-[20px] leading-none font-semibold tracking-[-0.02px] text-sky-950 sm:text-[24px]">
-                SOL DE AMÉRICA
+            <span className="grid h-[38px] w-[48px] place-items-center sm:h-[44px] sm:w-[60px]">
+              <img
+                src={brandLogo}
+                alt=""
+                className="h-full w-full object-contain"
+                width="62"
+                height="46"
+                decoding="async"
+              />
+            </span>
+            <span className="contents sm:block">
+              {/* Logo */}
+              <span className="block self-center whitespace-nowrap font-['Jersey_25'] text-[18px] leading-none font-semibold tracking-[-0.02px] text-black sm:text-[22px]">
+                <span className="block sm:inline">SOL DE</span>{" "}
+                <span className="block sm:inline">AMÉRICA</span>
               </span>
-              <span className="mt-1 block text-[8px] leading-none font-bold tracking-[1px] text-sky-500 uppercase sm:text-[9px] sm:tracking-[1.44px]">
+              <span className="col-span-2 -mt-0.5 block text-center text-[8px] leading-none font-bold tracking-[1px] text-sky-500 uppercase sm:mt-1 sm:text-left sm:tracking-[1.44px] sm:text-[9px]">
                 Zapatería · Cerrajería
               </span>
             </span>
@@ -473,7 +465,7 @@ export default function App() {
           formatPrice={formatPrice}
         />
       ) : location.pathname === "/servicios" ? (
-        <Servicios services={services} />
+        <Servicios services={services} onContactSubmit={handleContact} />
       ) : (
         <>
           <section
