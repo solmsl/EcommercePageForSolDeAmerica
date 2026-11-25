@@ -15,6 +15,7 @@ import {
 import ProductoDetalle from "./seccions/ProductoDetalle"
 import ProductosSection from "./seccions/Productos"
 import Servicios from "./seccions/Servicios"
+import DejarResena from "./seccions/DejarResena"
 
 const WHATSAPP_NUMBER = "5491121928109"
 
@@ -478,6 +479,8 @@ export default function App() {
         />
       ) : location.pathname === "/servicios" ? (
         <Servicios services={services} />
+      ) : location.pathname === "/dejar-resena" ? (
+        <DejarResena onSubmit={handleReviewSubmit} />
       ) : (
         <>
           <section
@@ -971,73 +974,6 @@ export default function App() {
           </section>
 
           <section className="bg-white pb-20 lg:pb-26">
-            <div className="bg-sky-100/70 px-5 py-14 lg:px-8 lg:py-20">
-              <div className="mx-auto max-w-7xl">
-                <article className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-                  <div>
-                    <p className="text-[0.68rem] font-extrabold tracking-[0.2em] text-sky-700 uppercase">
-                      Reseña destacada
-                    </p>
-                    <h2 className="mt-3 max-w-xl text-2xl leading-tight font-black tracking-[-0.04em] text-sky-950 sm:text-3xl">
-                      Que tus favoritos vuelvan a acompañarte.
-                    </h2>
-                    <p className="mt-4 max-w-xl text-sm leading-6 text-slate-700 sm:text-base sm:leading-7">
-                      {designerTestimonial.summary}
-                    </p>
-
-                    <div className="mt-7 grid gap-4 sm:grid-cols-3">
-                      {designerTestimonial.highlights.map((highlight) => (
-                        <div
-                          key={highlight.title}
-                          className="border-t border-sky-300/80 pt-3"
-                        >
-                          <h3 className="text-sm font-extrabold text-sky-950">
-                            {highlight.title}
-                          </h3>
-                          <p className="mt-1.5 text-xs leading-5 text-slate-700">
-                            {highlight.text}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-
-                    <footer className="mt-8 flex flex-wrap items-center justify-between gap-4">
-                      <div>
-                        <p className="text-sm font-extrabold text-sky-950">
-                          {designerTestimonial.author}
-                        </p>
-                        <p className="mt-1 text-xs text-slate-600">
-                          {designerTestimonial.role}
-                        </p>
-                      </div>
-                      <a
-                        href={designerTestimonial.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex h-11 items-center gap-2 rounded-full bg-sky-950 px-5 text-sm font-bold text-white transition hover:bg-sky-800"
-                      >
-                        Leer la reseña
-                        <Icon name="arrow" className="h-4 w-4" />
-                      </a>
-                    </footer>
-                  </div>
-
-                  <figure className="w-full max-w-[34rem] justify-self-end">
-                    <img
-                      src={designerTestimonial.image}
-                      alt="Trabajo de reparación artesanal de calzado"
-                      className="aspect-[4/3] w-full rounded-[1.75rem] object-cover"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <figcaption className="mt-3 text-xs font-semibold tracking-wide text-sky-800">
-                      Compostura de calzado y mochilas
-                    </figcaption>
-                  </figure>
-                </article>
-              </div>
-            </div>
-
             <div className="mx-auto max-w-7xl px-5 lg:px-8">
               <div className="mt-16">
                 <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
@@ -1166,96 +1102,91 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="mt-16 overflow-hidden rounded-[2rem] border border-sky-100 bg-white shadow-xl shadow-sky-950/5">
-                  <div className="grid lg:grid-cols-[0.72fr_1.28fr]">
-                    <div className="bg-sky-100/70 p-8 text-black sm:p-10">
-                      <p className="text-[0.7rem] font-extrabold tracking-[0.2em] text-sky-400 uppercase">
-                        Tu experiencia importa
-                      </p>
-                      <h3 className="mt-4 text-3xl font-black tracking-[-0.04em] text-[#082f49]">
-                        ¿Cómo fue tu visita?
-                      </h3>
-                      <p className="mt-4 text-sm leading-7 text-sky-950">
-                        Contanos cómo te atendimos. Todas las reseñas se revisan
-                        antes de publicarse en el sitio.
-                      </p>
+                <div className="mt-16 flex flex-col items-start justify-between gap-6 rounded-[2rem] bg-sky-100/70 p-7 sm:flex-row sm:items-center sm:p-9">
+                  <div>
+                    <p className="section-kicker">Tu experiencia importa</p>
+                    <h3 className="mt-2 text-2xl font-black tracking-[-0.04em] text-sky-950">
+                      ¿Cómo fue tu visita?
+                    </h3>
+                    <p className="mt-2 max-w-xl text-sm leading-6 text-slate-700">
+                      Compartí tu experiencia y ayudá a otros clientes.
+                    </p>
+                  </div>
+                  <Link
+                    to="/dejar-resena"
+                    className="inline-flex h-12 shrink-0 items-center gap-2 rounded-full bg-sky-950 px-6 text-sm font-bold text-white transition hover:bg-sky-800"
+                  >
+                    Dejar una reseña
+                    <Icon name="arrow" className="h-4 w-4" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-16 bg-sky-100/70 px-5 py-14 lg:px-8 lg:py-20">
+              <div className="mx-auto max-w-7xl">
+                <article className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+                  <div>
+                    <p className="text-[0.68rem] font-extrabold tracking-[0.2em] text-sky-700 uppercase">
+                      Reseña destacada
+                    </p>
+                    <h2 className="mt-3 max-w-xl text-2xl leading-tight font-black tracking-[-0.04em] text-sky-950 sm:text-3xl">
+                      Que tus favoritos vuelvan a acompañarte.
+                    </h2>
+                    <p className="mt-4 max-w-xl text-sm leading-6 text-slate-700 sm:text-base sm:leading-7">
+                      {designerTestimonial.summary}
+                    </p>
+
+                    <div className="mt-7 grid gap-4 sm:grid-cols-3">
+                      {designerTestimonial.highlights.map((highlight) => (
+                        <div
+                          key={highlight.title}
+                          className="border-t border-sky-300/80 pt-3"
+                        >
+                          <h3 className="text-sm font-extrabold text-sky-950">
+                            {highlight.title}
+                          </h3>
+                          <p className="mt-1.5 text-xs leading-5 text-slate-700">
+                            {highlight.text}
+                          </p>
+                        </div>
+                      ))}
                     </div>
 
-                    <form
-                      onSubmit={handleReviewSubmit}
-                      className="grid gap-5 p-8 sm:grid-cols-2 sm:p-10"
-                    >
-                      <label className="form-label">
-                        Nombre
-                        <input
-                          name="reviewName"
-                          required
-                          placeholder="Tu nombre"
-                          className="form-input"
-                        />
-                      </label>
-                      <label className="form-label">
-                        Servicio
-                        <select
-                          name="reviewService"
-                          required
-                          className="form-input"
-                          defaultValue=""
-                        >
-                          <option value="" disabled>
-                            Elegí una opción
-                          </option>
-                          <option>Zapatería</option>
-                          <option>Cerrajería</option>
-                          <option>Impresiones</option>
-                          <option>Carga SUBE</option>
-                          <option>Compra de productos</option>
-                          <option>Atención en el local</option>
-                        </select>
-                      </label>
-                      <label className="form-label">
-                        Calificación
-                        <select
-                          name="reviewRating"
-                          required
-                          className="form-input"
-                          defaultValue="5"
-                        >
-                          <option value="5">5 — Excelente</option>
-                          <option value="4">4 — Muy buena</option>
-                          <option value="3">3 — Buena</option>
-                          <option value="2">2 — Regular</option>
-                          <option value="1">1 — Mala</option>
-                        </select>
-                      </label>
-                      <label className="form-label sm:col-span-2">
-                        Tu reseña
-                        <textarea
-                          name="reviewMessage"
-                          required
-                          rows={4}
-                          minLength={10}
-                          maxLength={500}
-                          placeholder="Contanos qué servicio usaste y cómo fue tu experiencia..."
-                          className="form-input resize-none py-3"
-                        />
-                      </label>
-                      <div className="flex flex-col gap-4 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
-                        <p className="max-w-md text-xs leading-5 text-slate-500">
-                          Por ahora, al enviar se abrirá WhatsApp con tu reseña
-                          lista para compartir.
+                    <footer className="mt-8 flex flex-wrap items-center justify-between gap-4">
+                      <div>
+                        <p className="text-sm font-extrabold text-sky-950">
+                          {designerTestimonial.author}
                         </p>
-                        <button
-                          type="submit"
-                          className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-sky-500 px-6 text-sm font-bold text-sky-950 transition hover:bg-sky-400"
-                        >
-                          Enviar reseña
-                          <Icon name="arrow" className="h-4 w-4" />
-                        </button>
+                        <p className="mt-1 text-xs text-slate-600">
+                          {designerTestimonial.role}
+                        </p>
                       </div>
-                    </form>
+                      <a
+                        href={designerTestimonial.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex h-11 items-center gap-2 rounded-full bg-sky-950 px-5 text-sm font-bold text-white transition hover:bg-sky-800"
+                      >
+                        Leer la reseña
+                        <Icon name="arrow" className="h-4 w-4" />
+                      </a>
+                    </footer>
                   </div>
-                </div>
+
+                  <figure className="w-full max-w-[34rem] justify-self-end">
+                    <img
+                      src={designerTestimonial.image}
+                      alt="Trabajo de reparación artesanal de calzado"
+                      className="aspect-[4/3] w-full rounded-[1.75rem] object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <figcaption className="mt-3 text-xs font-semibold tracking-wide text-sky-800">
+                      Compostura de calzado y mochilas
+                    </figcaption>
+                  </figure>
+                </article>
               </div>
             </div>
           </section>

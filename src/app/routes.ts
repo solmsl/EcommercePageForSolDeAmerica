@@ -21,6 +21,10 @@ export const router = createBrowserRouter([
     Component: Site,
   },
   {
+    path: "/dejar-resena",
+    Component: Site,
+  },
+  {
     path: "/iniciar-sesion",
     Component: IniciarSesion,
   },

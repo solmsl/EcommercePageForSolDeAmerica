@@ -188,6 +188,34 @@ export const featuredProductIds = [1, 2, 4, 6]
 const shoemakingImage =
   "https://images.unsplash.com/photo-1759662232622-6c0754a379f4?auto=format&fit=crop&w=700&q=82"
 
+const serviceWorkImages = {
+  shoeSoles:
+    "https://images.unsplash.com/photo-1662135426497-eaa054ba53a3?auto=format&fit=crop&w=700&q=82",
+  shoeStitching:
+    "https://images.unsplash.com/photo-1591940704483-683982102b36?auto=format&fit=crop&w=700&q=82",
+  shoeCare:
+    "https://images.unsplash.com/photo-1577467013350-7c22a844e1a9?auto=format&fit=crop&w=700&q=82",
+  boots:
+    "https://images.unsplash.com/photo-1653868249587-284b275a1c67?auto=format&fit=crop&w=700&q=82",
+  leatherGoods:
+    "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=700&q=82",
+  homeKeys:
+    "https://images.unsplash.com/photo-1737442886747-9fb768b96ed2?auto=format&fit=crop&w=700&q=82",
+  padlockKeys:
+    "https://images.unsplash.com/photo-1758351507272-aa6929fe997e?auto=format&fit=crop&w=700&q=82",
+  furnitureKeys:
+    "https://images.unsplash.com/photo-1585914641050-fa9883c4e21c?auto=format&fit=crop&w=700&q=82",
+  locks:
+    "https://images.unsplash.com/photo-1756341782434-3020b9d17372?auto=format&fit=crop&w=700&q=82",
+  openings:
+    "https://images.unsplash.com/photo-1555529902-5261145633bf?auto=format&fit=crop&w=700&q=82",
+  carKeys:
+    "https://images.unsplash.com/photo-1533558701576-23c65e0272fb?auto=format&fit=crop&w=700&q=82",
+  printing:
+    "https://images.unsplash.com/photo-1706895040634-62055892cbbb?auto=format&fit=crop&w=700&q=82",
+  sube: "https://images.unsplash.com/photo-1632276536839-84cad7fd03b0?auto=format&fit=crop&w=700&q=82",
+}
+
 export const designerTestimonial = {
   author: "Sofi Martire",
   role: "Diseñadora y autora de la reseña",
@@ -276,31 +304,31 @@ export const serviceDetails = [
         title: "Cambio de suela",
         description:
           "Cambiamos la suela rota o gastada de tu calzado por una nueva, según el material y el estado de la pieza.",
+        image: serviceWorkImages.shoeSoles,
       },
       {
         title: "Reparación de costuras",
         description:
           "Reparamos costuras abiertas o descosidas en zapatos, zapatillas, botas y botines.",
+        image: serviceWorkImages.shoeStitching,
       },
       {
         title: "Restauración y cuidado",
         description:
           "Trabajamos sobre el calzado deteriorado para recuperar su funcionalidad y mejorar su acabado, evaluando cada reparación.",
+        image: serviceWorkImages.shoeCare,
       },
       {
-        title: "Cierres de mochilas y carteras",
+        title: "Botas y calzado deportivo",
         description:
-          "Reparamos o reemplazamos cierres dañados para que puedas volver a usar tus artículos.",
+          "Composturas para botas, botines, zapatillas urbanas y calzado deportivo o formal.",
+        image: serviceWorkImages.boots,
       },
       {
-        title: "Correas, manijas y costuras",
+        title: "Mochilas y carteras",
         description:
-          "Reforzamos y reparamos correas y costuras descosidas en mochilas y carteras.",
-      },
-      {
-        title: "Desgarros y roturas",
-        description:
-          "Evaluamos y reparamos roturas en la tela o el material de mochilas y otros artículos de marroquinería.",
+          "Reparamos cierres, correas, manijas, costuras abiertas, desgarros y roturas.",
+        image: serviceWorkImages.leatherGoods,
       },
     ],
   },
@@ -313,26 +341,31 @@ export const serviceDetails = [
         title: "Copias de llaves de hogar",
         description:
           "Duplicamos llaves de puertas del hogar a partir de tu llave original, según el modelo.",
+        image: serviceWorkImages.homeKeys,
       },
       {
         title: "Copias de llaves de candados",
         description:
           "Hacemos duplicados de llaves de candados para que tengas una copia de respaldo.",
+        image: serviceWorkImages.padlockKeys,
       },
       {
         title: "Llaves de muebles y modelos especiales",
         description:
           "Realizamos copias de llaves de muebles y distintos modelos especiales, previa verificación de compatibilidad.",
+        image: serviceWorkImages.furnitureKeys,
       },
       {
         title: "Cambios de combinación",
         description:
           "Modificamos la combinación de cerraduras compatibles para que funcionen con un nuevo juego de llaves.",
+        image: serviceWorkImages.locks,
       },
       {
         title: "Aperturas",
         description:
           "Evaluamos y realizamos aperturas de cerraduras según el tipo de mecanismo y el trabajo necesario.",
+        image: serviceWorkImages.openings,
       },
     ],
   },
@@ -342,14 +375,10 @@ export const serviceDetails = [
       "Copias y soluciones para llaves de vehículos. La posibilidad de realizar el trabajo depende del tipo de llave y del modelo.",
     jobs: [
       {
-        title: "Copias de llaves de vehículos",
+        title: "Copias y evaluación de llaves",
         description:
-          "Realizamos duplicados de llaves de automotor compatibles con los modelos que trabajamos.",
-      },
-      {
-        title: "Evaluación de la llave",
-        description:
-          "Revisamos el tipo de llave y el vehículo para identificar la solución posible antes de realizar el trabajo.",
+          "Revisamos el tipo de llave y el modelo del vehículo para confirmar compatibilidad y realizar duplicados cuando sea posible.",
+        image: serviceWorkImages.carKeys,
       },
     ],
   },
@@ -359,14 +388,10 @@ export const serviceDetails = [
       "Resolvé tus impresiones y copias de documentos en el mismo local.",
     jobs: [
       {
-        title: "Impresión de documentos",
+        title: "Impresiones y copias",
         description:
-          "Pasamos tus documentos a papel. El formato y las características de cada impresión se coordinan en el local.",
-      },
-      {
-        title: "Copias de documentos",
-        description:
-          "Hacemos copias en papel de tus documentos para trámites y necesidades de todos los días.",
+          "Imprimimos y hacemos copias de documentos. Coordiná en el local el formato y las características que necesitás.",
+        image: serviceWorkImages.printing,
       },
     ],
   },
@@ -379,6 +404,7 @@ export const serviceDetails = [
         title: "Carga de saldo",
         description:
           "Realizamos cargas de saldo en tu tarjeta SUBE. Acercate al local con tu tarjeta para cargarla.",
+        image: serviceWorkImages.sube,
       },
     ],
   },

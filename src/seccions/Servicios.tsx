@@ -5,7 +5,6 @@ import { serviceDetails } from "../data/content"
 interface Service {
   title: string
   text: string
-  image: string
 }
 
 export default function Servicios({ services }: { services: Service[] }) {
@@ -49,7 +48,7 @@ export default function Servicios({ services }: { services: Service[] }) {
       </section>
 
       <section className="bg-sky-50 px-5 py-10 lg:px-8 lg:py-16">
-        <div className="mx-auto max-w-7xl space-y-8 lg:space-y-12">
+        <div className="mx-auto max-w-7xl space-y-14 lg:space-y-20">
           {services.map((service, index) => {
             const detail = serviceDetails.find(
               (item) => item.title === service.title,
@@ -58,51 +57,46 @@ export default function Servicios({ services }: { services: Service[] }) {
               <article
                 id={`sector-${index}`}
                 key={service.title}
-                className="scroll-mt-28 overflow-hidden rounded-[1.75rem] border border-sky-100 bg-white shadow-lg shadow-sky-950/5 lg:grid lg:grid-cols-[0.36fr_0.64fr]"
+                className="scroll-mt-28 border-b border-sky-200/80 pb-12 last:border-0 last:pb-0 lg:pb-16"
               >
-                <div className="relative min-h-64 bg-sky-950 sm:min-h-80">
-                  <img
-                    src={service.image}
-                    alt={`Sector de ${service.title}`}
-                    className="absolute inset-0 h-full w-full object-cover"
-                    referrerPolicy="no-referrer"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-sky-950 via-sky-950/20 to-transparent" />
-                  <div className="relative flex h-full min-h-64 flex-col justify-end p-7 sm:min-h-80 sm:p-9">
-                    <span className="mb-auto w-fit rounded-full border border-white/30 bg-sky-950/30 px-3 py-1 text-[10px] font-bold tracking-widest text-white backdrop-blur-sm">
-                      {String(index + 1).padStart(2, "0")} /{" "}
-                      {String(services.length).padStart(2, "0")}
-                    </span>
-                    <h2 className="mt-12 text-3xl font-black tracking-[-0.04em] text-white">
-                      {service.title}
-                    </h2>
-                    <p className="mt-3 max-w-sm text-sm leading-6 text-sky-100">
-                      {detail?.introduction ?? service.text}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="p-6 sm:p-9">
-                  <p className="mb-5 text-[10px] font-extrabold tracking-[0.18em] text-sky-600 uppercase">
-                    Nuestros trabajos
+                <header className="mb-7 max-w-3xl">
+                  <p className="section-kicker">
+                    Servicio {String(index + 1).padStart(2, "0")} /{" "}
+                    {String(services.length).padStart(2, "0")}
                   </p>
-                  <ul className="grid gap-x-7 gap-y-6 sm:grid-cols-2">
-                    {detail?.jobs.map((job) => (
-                      <li
-                        key={job.title}
-                        className="border-t border-sky-100 pt-4"
-                      >
-                        <h3 className="text-base font-extrabold tracking-tight text-sky-950">
+                  <h2 className="mt-2 text-3xl font-black tracking-[-0.04em] text-sky-950 sm:text-4xl">
+                    {service.title}
+                  </h2>
+                  <p className="mt-3 text-sm leading-7 text-slate-600 sm:text-base">
+                    {detail?.introduction ?? service.text}
+                  </p>
+                </header>
+
+                <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                  {detail?.jobs.map((job) => (
+                    <article
+                      key={job.title}
+                      className="group overflow-hidden rounded-[1.5rem] border border-sky-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-950/10"
+                    >
+                      <div className="aspect-[16/10] overflow-hidden bg-sky-100">
+                        <img
+                          src={job.image}
+                          alt={`${job.title} en ${service.title}`}
+                          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </div>
+                      <div className="p-5">
+                        <h3 className="text-lg font-extrabold tracking-tight text-sky-950">
                           {job.title}
                         </h3>
                         <p className="mt-2 text-sm leading-6 text-slate-600">
                           {job.description}
                         </p>
-                      </li>
-                    ))}
-                  </ul>
+                      </div>
+                    </article>
+                  ))}
                 </div>
               </article>
             )
@@ -118,7 +112,8 @@ export default function Servicios({ services }: { services: Service[] }) {
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-slate-600">
             Esta guía reúne nuestros principales trabajos. Si tu reparación no
-            aparece en la lista, contanos qué necesitás y evaluamos cómo ayudarte.
+            aparece en la lista, contanos qué necesitás y evaluamos cómo
+            ayudarte.
           </p>
           <Link
             to="/#contacto"
