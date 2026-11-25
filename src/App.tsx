@@ -8,10 +8,12 @@ import {
   designerTestimonial,
   faqs,
   featuredProductIds,
+  homeWorkComparison,
   products,
   services,
   slides,
 } from "./data/content"
+import WorkComparisonCard from "./components/WorkComparisonCard"
 import ProductoDetalle from "./seccions/ProductoDetalle"
 import ProductosSection from "./seccions/Productos"
 import Servicios from "./seccions/Servicios"
@@ -478,7 +480,7 @@ export default function App() {
           formatPrice={formatPrice}
         />
       ) : location.pathname === "/servicios" ? (
-        <Servicios services={services} />
+        <Servicios services={services} waLink={waLink} />
       ) : location.pathname === "/dejar-resena" ? (
         <DejarResena onSubmit={handleReviewSubmit} />
       ) : (
@@ -973,6 +975,32 @@ export default function App() {
             </div>
           </section>
 
+          <section className="bg-sky-50 px-5 py-16 lg:px-8 lg:py-20">
+            <div className="mx-auto grid max-w-7xl gap-9 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-center lg:gap-14">
+              <div className="max-w-xl">
+                <p className="section-kicker">Antes y después</p>
+                <h2 className="section-title mt-2">
+                  Una nueva oportunidad para tu calzado.
+                </h2>
+                <p className="mt-5 text-sm leading-7 text-slate-600 sm:text-base">
+                  Deslizá la barra para explorar una comparación ilustrativa.
+                  Las imágenes son de referencia y no muestran la misma pieza.
+                </p>
+                <Link
+                  to="/servicios#trabajos-destacados"
+                  className="mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-sky-950 transition hover:text-sky-600"
+                >
+                  Ver más trabajos
+                  <Icon name="arrow" className="h-4 w-4" />
+                </Link>
+              </div>
+              <WorkComparisonCard
+                work={homeWorkComparison}
+                imageClassName="aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3]"
+              />
+            </div>
+          </section>
+
           <section className="bg-white pb-20 lg:pb-26">
             <div className="mx-auto max-w-7xl px-5 lg:px-8">
               <div className="mt-16">
@@ -1102,13 +1130,13 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="mt-16 flex flex-col items-start justify-between gap-6 rounded-[2rem] bg-sky-100/70 p-7 sm:flex-row sm:items-center sm:p-9">
-                  <div>
-                    <p className="section-kicker">Tu experiencia importa</p>
-                    <h3 className="mt-2 text-2xl font-black tracking-[-0.04em] text-sky-950">
+                <div className="mt-14 flex flex-col items-center justify-between gap-5 border-t border-sky-100 pt-8 text-center sm:flex-row sm:text-left">
+                  <div className="max-w-2xl">
+                    <p className="section-kicker">Tu experiencia nos ayuda</p>
+                    <h3 className="mt-1 text-xl font-black tracking-[-0.04em] text-sky-950">
                       ¿Cómo fue tu visita?
                     </h3>
-                    <p className="mt-2 max-w-xl text-sm leading-6 text-slate-700">
+                    <p className="mt-1 text-sm leading-6 text-slate-600">
                       Compartí tu experiencia y ayudá a otros clientes.
                     </p>
                   </div>

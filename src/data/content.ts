@@ -410,6 +410,61 @@ export const serviceDetails = [
   },
 ]
 
+export interface WorkComparison {
+  id: string
+  category: string
+  title: string
+  description: string
+  beforeImage: string
+  afterImage: string
+}
+
+export const homeWorkComparison: WorkComparison = {
+  id: "calzado-urbano",
+  category: "Zapatería",
+  title: "Renovación de calzado urbano",
+  description:
+    "Un ejemplo visual de los trabajos de compostura y cuidado del calzado.",
+  beforeImage:
+    "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1000&q=82",
+  afterImage:
+    "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=1000&q=82",
+}
+
+export const featuredWorkComparisons: WorkComparison[] = [
+  homeWorkComparison,
+  {
+    id: "cambio-de-suela",
+    category: "Zapatería",
+    title: "Cambio y reparación de suela",
+    description:
+      "Una muestra ilustrativa del tipo de reparación que ayuda a extender la vida útil del calzado.",
+    beforeImage: serviceWorkImages.shoeStitching,
+    afterImage: serviceWorkImages.shoeSoles,
+  },
+  {
+    id: "cuidado-de-botas",
+    category: "Zapatería",
+    title: "Cuidado y terminación de botas",
+    description:
+      "Trabajos de cuidado y terminación, evaluados según el material y el estado de cada pieza.",
+    beforeImage:
+      "https://images.unsplash.com/photo-1529953717281-81a40b131119?auto=format&fit=crop&w=1000&q=82",
+    afterImage: serviceWorkImages.boots,
+  },
+  {
+    id: "marroquineria",
+    category: "Mochilas y carteras",
+    title: "Reparación de mochilas",
+    description:
+      "Reparamos cierres, costuras, correas y otros detalles de mochilas y artículos de marroquinería.",
+    beforeImage:
+      "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=1000&q=82",
+    afterImage:
+      "https://images.unsplash.com/photo-1622560480654-d96214fdc887?auto=format&fit=crop&w=1000&q=82",
+  },
+]
+
 export const faqs = [
   {
     q: "¿Cuánto demora una compostura?",

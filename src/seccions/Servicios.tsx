@@ -1,13 +1,19 @@
 import { Link } from "react-router"
 import Icon from "../components/Icon"
-import { serviceDetails } from "../data/content"
+import WorkComparisonCard from "../components/WorkComparisonCard"
+import { featuredWorkComparisons, serviceDetails } from "../data/content"
 
 interface Service {
   title: string
   text: string
 }
 
-export default function Servicios({ services }: { services: Service[] }) {
+interface ServiciosProps {
+  services: Service[]
+  waLink: (message: string) => string
+}
+
+export default function Servicios({ services, waLink }: ServiciosProps) {
   return (
     <>
       <section className="bg-white px-5 pt-10 pb-12 lg:px-8 lg:pt-14 lg:pb-16">
@@ -76,7 +82,7 @@ export default function Servicios({ services }: { services: Service[] }) {
                   {detail?.jobs.map((job) => (
                     <article
                       key={job.title}
-                      className="group overflow-hidden rounded-[1.5rem] border border-sky-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-950/10"
+                      className="group flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-sky-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-950/10"
                     >
                       <div className="aspect-[16/10] overflow-hidden bg-sky-100">
                         <img
@@ -87,13 +93,25 @@ export default function Servicios({ services }: { services: Service[] }) {
                           decoding="async"
                         />
                       </div>
-                      <div className="p-5">
+                      <div className="flex flex-1 flex-col p-5">
                         <h3 className="text-lg font-extrabold tracking-tight text-sky-950">
                           {job.title}
                         </h3>
-                        <p className="mt-2 text-sm leading-6 text-slate-600">
+                        <p className="mt-2 flex-1 text-sm leading-6 text-slate-600">
                           {job.description}
                         </p>
+                        <a
+                          href={waLink(
+                            `Hola, quisiera consultar por el trabajo ${job.title} del servicio ${service.title}.`,
+                          )}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Consultar por ${job.title} en WhatsApp`}
+                          className="mt-4 inline-flex w-fit items-center gap-1.5 text-sm font-extrabold text-sky-700 transition hover:text-sky-950"
+                        >
+                          Consultar
+                          <Icon name="arrow" className="h-4 w-4" />
+                        </a>
                       </div>
                     </article>
                   ))}
@@ -101,6 +119,33 @@ export default function Servicios({ services }: { services: Service[] }) {
               </article>
             )
           })}
+        </div>
+      </section>
+
+      <section
+        id="trabajos-destacados"
+        className="scroll-mt-24 bg-white px-5 py-14 lg:px-8 lg:py-20"
+      >
+        <div className="mx-auto max-w-7xl">
+          <div className="max-w-3xl">
+            <p className="section-kicker">Una muestra del taller</p>
+            <h2 className="section-title mt-2">Trabajos destacados</h2>
+            <p className="mt-4 text-sm leading-7 text-slate-600 sm:text-base">
+              Deslizá cada comparador para ver las imágenes de referencia. Son
+              ilustrativas y no muestran la misma pieza antes y después.
+            </p>
+          </div>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            {featuredWorkComparisons.map((work) => (
+              <WorkComparisonCard
+                key={work.id}
+                work={work}
+                consultationHref={waLink(
+                  `Hola, quisiera consultar por el trabajo ${work.title} del servicio ${work.category}.`,
+                )}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
