@@ -185,15 +185,29 @@ export const products: Product[] = [
 
 export const featuredProductIds = [1, 2, 4, 6]
 
+const shoemakingImage =
+  "https://images.unsplash.com/photo-1759662232622-6c0754a379f4?auto=format&fit=crop&w=700&q=82"
+
 export const designerTestimonial = {
   author: "Sofi Martire",
-  role: "Diseñadora y autora de la nota",
+  role: "Diseñadora y autora de la reseña",
   title: "Compostura de calzados y mochilas: Sol de América",
-  quote:
-    "Los arreglos van más allá de una simple solución temporal; el objetivo es devolver la funcionalidad y la estética original a cada pieza.",
-  supportingQuotes: [
-    'Los clientes reportan que los artículos reparados, especialmente las botas, quedan "como nuevos".',
-    "La habilidad para trabajar con distintos materiales y tipos de calzado, como botas y botines, zapatillas urbanas o zapatos formales, demuestra una versatilidad profesional notable.",
+  image: shoemakingImage,
+  summary:
+    "Sofi Martire destaca el cuidado artesanal y la calidad de cada compostura.",
+  highlights: [
+    {
+      title: "Botas como nuevas",
+      text: "La reseña resalta resultados prolijos y un buen acabado.",
+    },
+    {
+      title: "Calzado y mochilas",
+      text: "Arreglos para distintos materiales y tipos de pieza.",
+    },
+    {
+      title: "Precios justos",
+      text: "Una alternativa a reemplazar lo que todavía puede repararse.",
+    },
   ],
   url: "https://sofimartire.com.ar/zapateria/compostura-de-calzados-y-mochilas-sol-de-america/",
 }
@@ -223,8 +237,7 @@ export const services = [
   {
     title: "Zapatería",
     text: "Composturas, restauración y cuidado de calzado.",
-    image:
-      "https://images.unsplash.com/photo-1759662232622-6c0754a379f4?auto=format&fit=crop&w=700&q=82",
+    image: shoemakingImage,
   },
   {
     title: "Cerrajería del Hogar",

@@ -970,84 +970,75 @@ export default function App() {
             </div>
           </section>
 
-          <section className="bg-white px-5 pb-20 lg:px-8 lg:pb-26">
-            <div className="mx-auto max-w-7xl">
-              <article className="overflow-hidden rounded-[1.75rem] border border-sky-100 bg-sky-50 shadow-xl shadow-sky-950/5">
-                <header className="flex flex-col gap-5 border-b border-sky-200/70 p-7 sm:flex-row sm:items-center sm:justify-between sm:p-8 lg:px-10">
-                  <div className="flex items-center gap-4">
-                    <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-sky-950 text-sm font-black text-white">
-                      SM
-                    </span>
-                    <div>
-                      <p className="text-sm font-extrabold text-sky-950">
-                        {designerTestimonial.author}
-                      </p>
-                      <p className="mt-1 text-xs text-slate-500">
-                        {designerTestimonial.role}
-                      </p>
-                    </div>
-                  </div>
-                  <a
-                    href={designerTestimonial.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hidden h-10 items-center gap-2 rounded-full border border-sky-200 bg-white px-4 text-xs font-bold text-sky-950 transition hover:border-sky-400 hover:bg-sky-100 sm:inline-flex"
-                  >
-                    Leer la reseña completa
-                    <Icon name="arrow" className="h-4 w-4" />
-                  </a>
-                </header>
-
-                <div className="grid gap-8 p-7 sm:p-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10 lg:p-10">
-                  <div className="flex flex-col justify-center">
-                    <p className="text-[0.68rem] font-extrabold tracking-[0.2em] text-sky-600 uppercase">
-                      Testimonio destacado
+          <section className="bg-white pb-20 lg:pb-26">
+            <div className="bg-sky-100/70 px-5 py-14 lg:px-8 lg:py-20">
+              <div className="mx-auto max-w-7xl">
+                <article className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+                  <div>
+                    <p className="text-[0.68rem] font-extrabold tracking-[0.2em] text-sky-700 uppercase">
+                      Reseña destacada
                     </p>
                     <h2 className="mt-3 max-w-xl text-2xl leading-tight font-black tracking-[-0.04em] text-sky-950 sm:text-3xl">
-                      La calidad del trabajo, en sus palabras.
+                      Que tus favoritos vuelvan a acompañarte.
                     </h2>
-                    <svg
-                      viewBox="0 0 48 48"
-                      className="mt-6 h-9 w-9 fill-sky-400/35"
-                      aria-hidden="true"
-                    >
-                      <path d="M8 9h14v14H13c0 7 3 11 9 14l-3 4C11 38 7 31 7 22V9Zm20 0h14v14h-9c0 7 3 11 9 14l-3 4c-8-3-12-10-12-19V9Z" />
-                    </svg>
-                    <blockquote className="mt-3 max-w-2xl text-xl leading-8 font-semibold tracking-[-0.025em] text-slate-700 sm:text-2xl sm:leading-9">
-                      “{designerTestimonial.quote}”
-                    </blockquote>
-                  </div>
+                    <p className="mt-4 max-w-xl text-sm leading-6 text-slate-700 sm:text-base sm:leading-7">
+                      {designerTestimonial.summary}
+                    </p>
 
-                  <div className="grid gap-3">
-                    {designerTestimonial.supportingQuotes.map(
-                      (supportingQuote, index) => (
-                        <blockquote
-                          key={supportingQuote}
-                          className="rounded-2xl border border-sky-100 bg-white p-5 text-sm leading-6 font-semibold text-slate-600 shadow-sm"
+                    <div className="mt-7 grid gap-4 sm:grid-cols-3">
+                      {designerTestimonial.highlights.map((highlight) => (
+                        <div
+                          key={highlight.title}
+                          className="border-t border-sky-300/80 pt-3"
                         >
-                          <span className="mb-3 block text-[10px] font-extrabold tracking-[0.16em] text-sky-500 uppercase">
-                            {index === 0
-                              ? "Resultado del trabajo"
-                              : "Versatilidad profesional"}
-                          </span>
-                          “{supportingQuote}”
-                        </blockquote>
-                      ),
-                    )}
+                          <h3 className="text-sm font-extrabold text-sky-950">
+                            {highlight.title}
+                          </h3>
+                          <p className="mt-1.5 text-xs leading-5 text-slate-700">
+                            {highlight.text}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+
+                    <footer className="mt-8 flex flex-wrap items-center justify-between gap-4">
+                      <div>
+                        <p className="text-sm font-extrabold text-sky-950">
+                          {designerTestimonial.author}
+                        </p>
+                        <p className="mt-1 text-xs text-slate-600">
+                          {designerTestimonial.role}
+                        </p>
+                      </div>
+                      <a
+                        href={designerTestimonial.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex h-11 items-center gap-2 rounded-full bg-sky-950 px-5 text-sm font-bold text-white transition hover:bg-sky-800"
+                      >
+                        Leer la reseña
+                        <Icon name="arrow" className="h-4 w-4" />
+                      </a>
+                    </footer>
                   </div>
 
-                  <a
-                    href={designerTestimonial.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex h-11 w-fit items-center gap-2 rounded-full bg-sky-950 px-5 text-sm font-bold text-white transition hover:bg-sky-700 sm:hidden"
-                  >
-                    Leer la reseña completa
-                    <Icon name="arrow" className="h-4 w-4" />
-                  </a>
-                </div>
-              </article>
+                  <figure className="w-full max-w-[34rem] justify-self-end">
+                    <img
+                      src={designerTestimonial.image}
+                      alt="Trabajo de reparación artesanal de calzado"
+                      className="aspect-[4/3] w-full rounded-[1.75rem] object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <figcaption className="mt-3 text-xs font-semibold tracking-wide text-sky-800">
+                      Compostura de calzado y mochilas
+                    </figcaption>
+                  </figure>
+                </article>
+              </div>
+            </div>
 
+            <div className="mx-auto max-w-7xl px-5 lg:px-8">
               <div className="mt-16">
                 <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
                   <div>
@@ -1181,7 +1172,7 @@ export default function App() {
                       <p className="text-[0.7rem] font-extrabold tracking-[0.2em] text-sky-400 uppercase">
                         Tu experiencia importa
                       </p>
-                      <h3 className="mt-4 text-3xl font-black tracking-[-0.04em]">
+                      <h3 className="mt-4 text-3xl font-black tracking-[-0.04em] text-[#082f49]">
                         ¿Cómo fue tu visita?
                       </h3>
                       <p className="mt-4 text-sm leading-7 text-sky-950">
