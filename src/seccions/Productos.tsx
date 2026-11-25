@@ -2,25 +2,32 @@ import { useMemo, useState } from "react"
 import { Link } from "react-router"
 import Icon from "../components/Icon"
 
+const PRODUCTS_PER_PAGE = 8
+
 interface Product {
-  id: number;
-  name: string;
-  price: number;
-  category: string;
-  image: string;
-  tag?: string;
+  id: number
+  name: string
+  price: number
+  category: string
+  image: string
+  tag?: string
 }
 
 interface ProductosProps {
-  products: Product[];
-  onAddToCart: (productId: number) => void;
-  formatPrice: (price: number) => string;
+  products: Product[]
+  onAddToCart: (productId: number) => void
+  formatPrice: (price: number) => string
 }
 
-export default function ProductosSection({ products, onAddToCart, formatPrice }: ProductosProps) {
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("Todos");
+export default function ProductosSection({
+  products,
+  onAddToCart,
+  formatPrice,
+}: ProductosProps) {
+  const [search, setSearch] = useState("")
+  const [category, setCategory] = useState("Todos")
   const [sort, setSort] = useState("destacados")
+  const [visibleCount, setVisibleCount] = useState(PRODUCTS_PER_PAGE)
 
   const categories = useMemo(
     () => ["Todos", ...new Set(products.map((product) => product.category))],
@@ -47,6 +54,8 @@ export default function ProductosSection({ products, onAddToCart, formatPrice }:
       return 0
     })
   }, [category, products, search, sort])
+
+  const visibleProducts = filteredProducts.slice(0, visibleCount)
 
   return (
     <section
@@ -82,7 +91,10 @@ export default function ProductosSection({ products, onAddToCart, formatPrice }:
               />
               <input
                 value={search}
-                onChange={(event) => setSearch(event.target.value)}
+                onChange={(event) => {
+                  setSearch(event.target.value)
+                  setVisibleCount(PRODUCTS_PER_PAGE)
+                }}
                 placeholder="Buscar por nombre o categoría..."
                 className="h-13 w-full rounded-2xl border border-sky-100 bg-white pr-4 pl-12 text-sm font-medium text-sky-950 outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:ring-4 focus:ring-sky-100"
                 aria-label="Buscar productos"
@@ -92,7 +104,10 @@ export default function ProductosSection({ products, onAddToCart, formatPrice }:
               <span className="sr-only">Ordenar productos</span>
               <select
                 value={sort}
-                onChange={(event) => setSort(event.target.value)}
+                onChange={(event) => {
+                  setSort(event.target.value)
+                  setVisibleCount(PRODUCTS_PER_PAGE)
+                }}
                 className="h-13 w-full appearance-none rounded-2xl border border-sky-100 bg-white px-4 pr-10 text-sm font-bold text-sky-950 outline-none transition focus:border-sky-400 focus:ring-4 focus:ring-sky-100"
               >
                 <option value="destacados">Ordenar: destacados</option>
@@ -111,7 +126,10 @@ export default function ProductosSection({ products, onAddToCart, formatPrice }:
             {categories.map((item) => (
               <button
                 key={item}
-                onClick={() => setCategory(item)}
+                onClick={() => {
+                  setCategory(item)
+                  setVisibleCount(PRODUCTS_PER_PAGE)
+                }}
                 className={`shrink-0 rounded-full px-5 py-2.5 text-xs font-bold transition ${
                   category === item
                     ? "bg-sky-950 text-white"
@@ -134,6 +152,7 @@ export default function ProductosSection({ products, onAddToCart, formatPrice }:
               onClick={() => {
                 setSearch("")
                 setCategory("Todos")
+                setVisibleCount(PRODUCTS_PER_PAGE)
               }}
               className="text-xs font-bold text-sky-600 transition hover:text-sky-950"
             >
@@ -143,7 +162,7 @@ export default function ProductosSection({ products, onAddToCart, formatPrice }:
         </div>
 
         <div className="mt-6 grid grid-cols-2 gap-x-3 gap-y-9 sm:gap-x-5 sm:gap-y-10 lg:grid-cols-4">
-          {filteredProducts.map((product) => (
+          {visibleProducts.map((product) => (
             <article key={product.id} className="group">
               <div className="relative aspect-[4/4.3] overflow-hidden rounded-[1.5rem] bg-sky-50">
                 <img
@@ -178,9 +197,7 @@ export default function ProductosSection({ products, onAddToCart, formatPrice }:
                 </p>
                 <div className="mt-1">
                   <h3 className="font-semibold text-slate-800 transition hover:text-sky-600">
-                    <Link to={`/productos/${product.id}`}>
-                      {product.name}
-                    </Link>
+                    <Link to={`/productos/${product.id}`}>{product.name}</Link>
                   </h3>
                   <p className="mt-1 font-extrabold text-sky-950">
                     {formatPrice(product.price)}
@@ -198,6 +215,36 @@ export default function ProductosSection({ products, onAddToCart, formatPrice }:
           ))}
         </div>
 
+        {filteredProducts.length > PRODUCTS_PER_PAGE && (
+          <div
+            className="mt-10 flex flex-col items-center gap-3"
+            aria-live="polite"
+          >
+            <p className="text-sm font-medium text-slate-500">
+              Mostrando{" "}
+              <span className="font-extrabold text-sky-950">
+                {visibleProducts.length}
+              </span>{" "}
+              de {filteredProducts.length} productos
+            </p>
+            {visibleProducts.length < filteredProducts.length ? (
+              <button
+                type="button"
+                onClick={() =>
+                  setVisibleCount((count) => count + PRODUCTS_PER_PAGE)
+                }
+                className="rounded-full bg-sky-950 px-7 py-3 text-sm font-bold text-white shadow-lg shadow-sky-950/15 transition hover:-translate-y-0.5 hover:bg-sky-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700"
+              >
+                Ver más productos
+              </button>
+            ) : (
+              <p className="text-xs font-bold tracking-wide text-sky-700">
+                Ya viste todos los productos
+              </p>
+            )}
+          </div>
+        )}
+
         {filteredProducts.length === 0 && (
           <p className="py-20 text-center text-slate-500">
             No encontramos productos con esa búsqueda.
@@ -205,5 +252,5 @@ export default function ProductosSection({ products, onAddToCart, formatPrice }:
         )}
       </div>
     </section>
-  );
+  )
 }
