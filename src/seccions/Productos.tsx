@@ -1,26 +1,22 @@
 import { useMemo, useState } from "react"
 import { Link } from "react-router"
 import Icon from "../components/Icon"
+import type { Product } from "../data/content"
 
 const PRODUCTS_PER_PAGE = 8
 
-interface Product {
-  id: number
-  name: string
-  price: number
-  category: string
-  image: string
-  tag?: string
-}
-
 interface ProductosProps {
   products: Product[]
+  isLoading: boolean
+  hasError: boolean
   onAddToCart: (productId: number) => void
   formatPrice: (price: number) => string
 }
 
 export default function ProductosSection({
   products,
+  isLoading,
+  hasError,
   onAddToCart,
   formatPrice,
 }: ProductosProps) {
@@ -144,8 +140,11 @@ export default function ProductosSection({
 
         <div className="mt-8 flex items-center justify-between gap-4">
           <p className="text-sm font-bold text-sky-950">
-            {filteredProducts.length}{" "}
-            {filteredProducts.length === 1 ? "producto" : "productos"}
+            {isLoading
+              ? "Cargando productos..."
+              : `${filteredProducts.length} ${
+                  filteredProducts.length === 1 ? "producto" : "productos"
+                }`}
           </p>
           {(search || category !== "Todos") && (
             <button
@@ -186,9 +185,11 @@ export default function ProductosSection({
                 {/* Botón flotante para computadora */}
                 <button
                   onClick={() => onAddToCart(product.id)}
-                  className="absolute right-4 bottom-4 left-4 z-20 hidden h-12 translate-y-3 items-center justify-center gap-2 rounded-full bg-sky-950 text-sm font-bold text-white opacity-0 shadow-lg transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 focus:translate-y-0 focus:opacity-100 sm:flex"
+                  disabled={product.stock <= 0}
+                  className="absolute right-4 bottom-4 left-4 z-20 hidden h-12 translate-y-3 items-center justify-center gap-2 rounded-full bg-sky-950 text-sm font-bold text-white opacity-0 shadow-lg transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 focus:translate-y-0 focus:opacity-100 disabled:cursor-not-allowed disabled:opacity-50 sm:flex"
                 >
-                  <Icon name="bag" className="h-4 w-4" /> Agregar al carrito
+                  <Icon name="bag" className="h-4 w-4" />
+                  {product.stock > 0 ? "Agregar al carrito" : "Sin stock"}
                 </button>
               </div>
               <div className="px-1 pt-4">
@@ -206,9 +207,11 @@ export default function ProductosSection({
                 {/* Botón simplificado para celular */}
                 <button
                   onClick={() => onAddToCart(product.id)}
-                  className="mt-3 flex items-center gap-1.5 text-xs font-bold text-sky-600 sm:hidden"
+                  disabled={product.stock <= 0}
+                  className="mt-3 flex items-center gap-1.5 text-xs font-bold text-sky-600 disabled:cursor-not-allowed disabled:opacity-50 sm:hidden"
                 >
-                  <Icon name="bag" className="h-4 w-4" /> Agregar al carrito
+                  <Icon name="bag" className="h-4 w-4" />
+                  {product.stock > 0 ? "Agregar al carrito" : "Sin stock"}
                 </button>
               </div>
             </article>
@@ -245,7 +248,7 @@ export default function ProductosSection({
           </div>
         )}
 
-        {filteredProducts.length === 0 && (
+        {!isLoading && !hasError && filteredProducts.length === 0 && (
           <p className="py-20 text-center text-slate-500">
             No encontramos productos con esa búsqueda.
           </p>

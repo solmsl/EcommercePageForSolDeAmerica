@@ -7,12 +7,12 @@ import {
   customerReviews,
   designerTestimonial,
   faqs,
-  featuredProductIds,
   homeWorkComparison,
-  products,
   services,
   slides,
 } from "./data/content"
+import type { Product } from "./data/content"
+import { fetchProducts } from "./data/productsApi"
 import WorkComparisonCard from "./components/WorkComparisonCard"
 import ProductoDetalle from "./seccions/ProductoDetalle"
 import ProductosSection from "./seccions/Productos"
@@ -137,6 +137,10 @@ export default function App() {
   const [category, setCategory] = useState("Todos")
   const [search, setSearch] = useState("")
   const [searchOpen, setSearchOpen] = useState(false)
+  const [products, setProducts] = useState<Product[]>([])
+  const [productsLoading, setProductsLoading] = useState(true)
+  const [productsError, setProductsError] = useState<string | null>(null)
+  const [productsRequest, setProductsRequest] = useState(0)
   const [cart, setCart] = useState<number[]>([])
   const [cartOpen, setCartOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -151,6 +155,32 @@ export default function App() {
     )
     return () => window.clearInterval(timer)
   }, [])
+
+  useEffect(() => {
+    const controller = new AbortController()
+    let active = true
+    setProductsLoading(true)
+    setProductsError(null)
+
+    fetchProducts(controller.signal)
+      .then((loadedProducts) => {
+        if (active) setProducts(loadedProducts)
+      })
+      .catch((error: unknown) => {
+        if (!active) return
+        const detail =
+          error instanceof Error ? ` ${error.message}` : " Error desconocido."
+        setProductsError(`No se pudieron cargar los productos.${detail}`)
+      })
+      .finally(() => {
+        if (active) setProductsLoading(false)
+      })
+
+    return () => {
+      active = false
+      controller.abort()
+    }
+  }, [productsRequest])
 
   useEffect(() => {
     if (!location.hash) return
@@ -174,7 +204,7 @@ export default function App() {
             .toLowerCase()
             .includes(search.trim().toLowerCase()),
       ),
-    [category, search],
+    [category, products, search],
   )
   const filteredServices = useMemo(
     () =>
@@ -187,11 +217,8 @@ export default function App() {
     [search],
   )
   const featuredProducts = useMemo(
-    () =>
-      featuredProductIds
-        .map((id) => products.find((product) => product.id === id))
-        .filter(Boolean) as typeof products,
-    [],
+    () => products.slice(0, 4),
+    [products],
   )
 
   const cartProducts = cart
@@ -470,9 +497,26 @@ export default function App() {
         )}
       </header>
 
+      {productsError && (
+        <div
+          className="flex flex-wrap items-center justify-center gap-3 bg-rose-50 px-5 py-3 text-center text-sm text-rose-800"
+          role="alert"
+        >
+          <span>{productsError}</span>
+          <button
+            type="button"
+            onClick={() => setProductsRequest((request) => request + 1)}
+            className="font-bold underline underline-offset-2"
+          >
+            Reintentar
+          </button>
+        </div>
+      )}
+
       {productRoute ? (
         <ProductoDetalle
           product={selectedProduct}
+          isLoading={productsLoading}
           formatPrice={formatPrice}
           onAddToCart={(productId, quantity) =>
             setCart((items) => [
@@ -487,6 +531,8 @@ export default function App() {
       ) : location.pathname === "/productos" ? (
         <ProductosSection
           products={products}
+          isLoading={productsLoading}
+          hasError={Boolean(productsError)}
           onAddToCart={(productId) => setCart((items) => [...items, productId])}
           formatPrice={formatPrice}
         />
@@ -668,10 +714,11 @@ export default function App() {
                         onClick={() =>
                           setCart((items) => [...items, product.id])
                         }
-                        className="absolute right-4 bottom-4 left-4 z-20 hidden h-12 translate-y-3 items-center justify-center gap-2 rounded-full bg-sky-950 text-sm font-bold text-white opacity-0 shadow-lg transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 focus:translate-y-0 focus:opacity-100 sm:flex"
+                        disabled={product.stock <= 0}
+                        className="absolute right-4 bottom-4 left-4 z-20 hidden h-12 translate-y-3 items-center justify-center gap-2 rounded-full bg-sky-950 text-sm font-bold text-white opacity-0 shadow-lg transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 focus:translate-y-0 focus:opacity-100 disabled:cursor-not-allowed disabled:opacity-50 sm:flex"
                       >
-                        <Icon name="bag" className="h-4 w-4" /> Agregar al
-                        carrito
+                        <Icon name="bag" className="h-4 w-4" />
+                        {product.stock > 0 ? "Agregar al carrito" : "Sin stock"}
                       </button>
                     </div>
                     <div className="px-1 pt-4">
@@ -692,20 +739,28 @@ export default function App() {
                         onClick={() =>
                           setCart((items) => [...items, product.id])
                         }
-                        className="mt-3 flex items-center gap-1.5 text-xs font-bold text-sky-600 sm:hidden"
+                        disabled={product.stock <= 0}
+                        className="mt-3 flex items-center gap-1.5 text-xs font-bold text-sky-600 disabled:cursor-not-allowed disabled:opacity-50 sm:hidden"
                       >
                         <Icon name="bag" className="h-3.5 w-3.5" />
-                        Agregar al carrito
+                        {product.stock > 0 ? "Agregar al carrito" : "Sin stock"}
                       </button>
                     </div>
                   </article>
                 ))}
               </div>
-              {featuredProducts.length === 0 && (
+              {productsLoading && (
+                <p className="py-12 text-center text-slate-500" role="status">
+                  Cargando productos...
+                </p>
+              )}
+              {!productsLoading &&
+                !productsError &&
+                featuredProducts.length === 0 && (
                 <p className="py-20 text-center text-slate-500">
                   Los productos destacados estarán disponibles próximamente.
                 </p>
-              )}
+                )}
               <div className="mt-12 flex justify-center">
                 <Link
                   to="/productos"

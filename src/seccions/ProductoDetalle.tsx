@@ -5,6 +5,7 @@ import type { Product } from "../data/content"
 
 interface ProductoDetalleProps {
   product?: Product
+  isLoading: boolean
   formatPrice: (price: number) => string
   onAddToCart: (productId: number, quantity: number) => void
   consultationHref: string
@@ -12,6 +13,7 @@ interface ProductoDetalleProps {
 
 export default function ProductoDetalle({
   product,
+  isLoading,
   formatPrice,
   onAddToCart,
   consultationHref,
@@ -25,6 +27,17 @@ export default function ProductoDetalle({
     setSelectedColor(product?.colors[0] ?? "")
     setQuantity(1)
   }, [product])
+
+  if (isLoading) {
+    return (
+      <section
+        className="grid min-h-[60vh] place-items-center px-5 py-20 text-center text-slate-500"
+        role="status"
+      >
+        Cargando producto...
+      </section>
+    )
+  }
 
   if (!product) {
     return (
@@ -71,28 +84,30 @@ export default function ProductoDetalle({
                 referrerPolicy="no-referrer"
               />
             </div>
-            <div className="mt-4 grid grid-cols-3 gap-3">
-              {product.images.map((image, index) => (
-                <button
-                  key={image}
-                  onClick={() => setSelectedImage(index)}
-                  className={`aspect-[4/3] overflow-hidden rounded-2xl border-2 transition ${
-                    selectedImage === index
-                      ? "border-sky-500"
-                      : "border-transparent opacity-70 hover:opacity-100"
-                  }`}
-                  aria-label={`Ver imagen ${index + 1} de ${product.name}`}
-                >
-                  <img
-                    src={image}
-                    alt=""
-                    className="h-full w-full object-cover"
-                    referrerPolicy="no-referrer"
-                    loading="lazy"
-                  />
-                </button>
-              ))}
-            </div>
+            {product.images.length > 1 && (
+              <div className="mt-4 grid grid-cols-3 gap-3">
+                {product.images.map((image, index) => (
+                  <button
+                    key={image}
+                    onClick={() => setSelectedImage(index)}
+                    className={`aspect-[4/3] overflow-hidden rounded-2xl border-2 transition ${
+                      selectedImage === index
+                        ? "border-sky-500"
+                        : "border-transparent opacity-70 hover:opacity-100"
+                    }`}
+                    aria-label={`Ver imagen ${index + 1} de ${product.name}`}
+                  >
+                    <img
+                      src={image}
+                      alt=""
+                      className="h-full w-full object-cover"
+                      referrerPolicy="no-referrer"
+                      loading="lazy"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="lg:pt-4">
@@ -115,65 +130,88 @@ export default function ProductoDetalle({
               {product.description}
             </p>
 
-            <div className="mt-7 flex items-center gap-2 text-sm font-bold text-emerald-700">
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
-              {product.stock} unidades disponibles
+            <div
+              className={`mt-7 flex items-center gap-2 text-sm font-bold ${
+                product.stock > 0 ? "text-emerald-700" : "text-rose-700"
+              }`}
+            >
+              <span
+                className={`h-2.5 w-2.5 rounded-full ${
+                  product.stock > 0 ? "bg-emerald-500" : "bg-rose-500"
+                }`}
+              />
+              {product.stock > 0
+                ? `${product.stock} unidades disponibles`
+                : "Sin stock disponible"}
             </div>
 
-            <div className="mt-8">
-              <p className="text-xs font-extrabold tracking-[0.12em] text-sky-950 uppercase">
-                Color
-              </p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {product.colors.map((color) => (
+            {product.colors.length > 0 && (
+              <div className="mt-8">
+                <p className="text-xs font-extrabold tracking-[0.12em] text-sky-950 uppercase">
+                  Color
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {product.colors.map((color) => (
+                    <button
+                      key={color}
+                      onClick={() => setSelectedColor(color)}
+                      className={`rounded-full border px-4 py-2 text-xs font-bold transition ${
+                        selectedColor === color
+                          ? "border-sky-950 bg-sky-950 text-white"
+                          : "border-slate-200 text-slate-600 hover:border-sky-300"
+                      }`}
+                    >
+                      {color}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {product.stock > 0 && (
+              <div className="mt-8">
+                <p className="text-xs font-extrabold tracking-[0.12em] text-sky-950 uppercase">
+                  Cantidad
+                </p>
+                <div className="mt-3 inline-flex h-12 items-center rounded-full border border-slate-200 bg-white">
                   <button
-                    key={color}
-                    onClick={() => setSelectedColor(color)}
-                    className={`rounded-full border px-4 py-2 text-xs font-bold transition ${
-                      selectedColor === color
-                        ? "border-sky-950 bg-sky-950 text-white"
-                        : "border-slate-200 text-slate-600 hover:border-sky-300"
-                    }`}
+                    onClick={() =>
+                      setQuantity((value) => Math.max(1, value - 1))
+                    }
+                    className="grid h-12 w-12 place-items-center text-xl font-bold text-sky-950"
+                    aria-label="Disminuir cantidad"
                   >
-                    {color}
+                    −
                   </button>
-                ))}
+                  <span className="w-10 text-center text-sm font-extrabold">
+                    {quantity}
+                  </span>
+                  <button
+                    onClick={() =>
+                      setQuantity((value) =>
+                        Math.min(product.stock, value + 1),
+                      )
+                    }
+                    className="grid h-12 w-12 place-items-center text-xl font-bold text-sky-950"
+                    aria-label="Aumentar cantidad"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
-            </div>
-
-            <div className="mt-8">
-              <p className="text-xs font-extrabold tracking-[0.12em] text-sky-950 uppercase">
-                Cantidad
-              </p>
-              <div className="mt-3 inline-flex h-12 items-center rounded-full border border-slate-200 bg-white">
-                <button
-                  onClick={() => setQuantity((value) => Math.max(1, value - 1))}
-                  className="grid h-12 w-12 place-items-center text-xl font-bold text-sky-950"
-                  aria-label="Disminuir cantidad"
-                >
-                  −
-                </button>
-                <span className="w-10 text-center text-sm font-extrabold">
-                  {quantity}
-                </span>
-                <button
-                  onClick={() =>
-                    setQuantity((value) => Math.min(product.stock, value + 1))
-                  }
-                  className="grid h-12 w-12 place-items-center text-xl font-bold text-sky-950"
-                  aria-label="Aumentar cantidad"
-                >
-                  +
-                </button>
-              </div>
-            </div>
+            )}
 
             <button
               onClick={() => onAddToCart(product.id, quantity)}
-              className="mt-8 flex h-14 w-full items-center justify-center gap-3 rounded-full bg-sky-950 px-7 text-sm font-bold text-white shadow-lg shadow-sky-950/15 transition hover:bg-sky-800"
+              disabled={product.stock <= 0}
+              className="mt-8 flex h-14 w-full items-center justify-center gap-3 rounded-full bg-sky-950 px-7 text-sm font-bold text-white shadow-lg shadow-sky-950/15 transition hover:bg-sky-800 disabled:cursor-not-allowed disabled:opacity-50"
             >
               <Icon name="bag" className="h-5 w-5" />
-              Agregar {quantity > 1 ? `${quantity} unidades` : "al carrito"}
+              {product.stock <= 0
+                ? "Sin stock"
+                : `Agregar ${
+                    quantity > 1 ? `${quantity} unidades` : "al carrito"
+                  }`}
             </button>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-2">
@@ -200,25 +238,27 @@ export default function ProductoDetalle({
         </div>
 
         <div className="mt-16 grid gap-8 border-t border-sky-100 pt-12 lg:grid-cols-[1fr_auto] lg:items-start">
-          <div>
-            <p className="section-kicker">Información del producto</p>
-            <h2 className="text-3xl font-extrabold tracking-[-0.04em] text-sky-950">
-              Características técnicas
-            </h2>
-            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-              {product.features.map((feature) => (
-                <li
-                  key={feature}
-                  className="flex items-center gap-3 text-sm font-semibold text-slate-700"
-                >
-                  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-sky-100 text-sky-700">
-                    <Icon name="check" className="h-3.5 w-3.5" />
-                  </span>
-                  {feature}
-                </li>
-              ))}
-            </ul>
-          </div>
+          {product.features.length > 0 && (
+            <div>
+              <p className="section-kicker">Información del producto</p>
+              <h2 className="text-3xl font-extrabold tracking-[-0.04em] text-sky-950">
+                Características técnicas
+              </h2>
+              <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+                {product.features.map((feature) => (
+                  <li
+                    key={feature}
+                    className="flex items-center gap-3 text-sm font-semibold text-slate-700"
+                  >
+                    <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-sky-100 text-sky-700">
+                      <Icon name="check" className="h-3.5 w-3.5" />
+                    </span>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <a
             href={consultationHref}
