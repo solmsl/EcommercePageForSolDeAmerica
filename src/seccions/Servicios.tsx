@@ -1,4 +1,5 @@
 import { Link } from "react-router"
+import servicesProductImage from "../assets/servicios-productos.png"
 import Icon from "../components/Icon"
 import WorkComparisonCard from "../components/WorkComparisonCard"
 import { featuredWorkComparisons, serviceDetails } from "../data/content"
@@ -28,13 +29,27 @@ export default function Servicios({ services, waLink }: ServiciosProps) {
             <span aria-hidden="true">/</span>
             <span className="text-sky-950">Servicios</span>
           </nav>
-          <div className="max-w-3xl">
-            <p className="section-kicker">Oficio y soluciones</p>
-            <h1 className="section-title">Conocé todo lo que hacemos.</h1>
-            <p className="mt-6 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
-              Desde una suela nueva hasta una copia de tus llaves. Descubrí
-              nuestros trabajos, organizados por sector y explicados en detalle.
-            </p>
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center xl:gap-14">
+            <div className="max-w-3xl">
+              <p className="section-kicker">Oficio y soluciones</p>
+              <h1 className="section-title">Conocé todo lo que hacemos.</h1>
+              <p className="mt-6 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
+                Desde una suela nueva hasta una copia de tus llaves. Descubrí
+                nuestros trabajos, organizados por sector y explicados en
+                detalle.
+              </p>
+            </div>
+            <div className="hidden justify-end lg:flex">
+              <div className="aspect-[3/2] w-full max-w-[440px] overflow-hidden rounded-2xl border border-sky-100 bg-sky-50 shadow-xl shadow-sky-950/10">
+                <img
+                  src={servicesProductImage}
+                  alt="Mochilas, zapatos, zapatillas, carteras, llaves, candados, cerraduras, papeles y una tarjeta SUBE"
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
           </div>
           <nav
             className="mt-8 flex flex-wrap gap-2"
