@@ -220,11 +220,22 @@ export default function App() {
     }
 
     const scrollToSection = () =>
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
+      document
+        .getElementById(id)
+        ?.scrollIntoView({ behavior: "smooth", block: "start" })
+    const scrollAfterMenuCloses = () =>
+      window.requestAnimationFrame(() =>
+        window.requestAnimationFrame(scrollToSection),
+      )
 
     if (location.pathname !== "/") {
       navigate("/")
-      window.setTimeout(scrollToSection, 50)
+      window.setTimeout(
+        mobileOpen ? scrollAfterMenuCloses : scrollToSection,
+        50,
+      )
+    } else if (mobileOpen) {
+      scrollAfterMenuCloses()
     } else {
       scrollToSection()
     }
@@ -560,7 +571,7 @@ export default function App() {
           </section>
 
           <section className="border-b border-sky-100 bg-sky-50">
-            <div className="mx-auto grid max-w-7xl justify-items-center gap-4 px-8 py-6 sm:grid-cols-3 lg:px-8">
+            <div className="mx-auto grid max-w-7xl grid-cols-3 items-center justify-items-center gap-x-2 gap-y-4 px-3 py-6 sm:gap-4 sm:px-8 lg:px-8">
               {[
                 ["check", "Trabajo garantizado", "Cuidamos cada detalle"],
                 ["clock", "Atención rápida", "Consultá por trabajos en el día"],
@@ -568,15 +579,19 @@ export default function App() {
               ].map(([icon, title, text]) => (
                 <div
                   key={title}
-                  className="grid w-full max-w-[280px] grid-cols-[24px_minmax(0,1fr)] items-center gap-3 sm:flex sm:max-w-none sm:justify-center sm:gap-4"
+                  className="flex h-full w-full max-w-[280px] flex-col items-center justify-start gap-2 text-center sm:max-w-none sm:flex-row sm:justify-center sm:gap-4 sm:text-left"
                 >
                   <Icon
                     name={icon as IconName}
                     className="h-6 w-6 shrink-0 text-sky-500"
                   />
-                  <div>
-                    <p className="text-sm font-bold text-sky-950">{title}</p>
-                    <p className="text-xs text-slate-500">{text}</p>
+                  <div className="min-w-0">
+                    <p className="text-[11px] leading-tight font-bold text-sky-950 sm:text-sm sm:leading-normal">
+                      {title}
+                    </p>
+                    <p className="mt-1 text-[10px] leading-tight text-slate-500 sm:mt-0 sm:text-xs sm:leading-normal">
+                      {text}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -749,7 +764,7 @@ export default function App() {
 
               <Link
                 to="/servicios"
-                className="mx-auto mt-7 flex w-fit items-center gap-2 text-sm font-bold text-sky-950 sm:hidden"
+                className="mx-auto mt-14 flex w-fit items-center gap-2 text-base font-bold text-sky-950 sm:hidden"
               >
                 Ver todos
                 <Icon name="arrow" className="h-4 w-4" />
@@ -1001,9 +1016,9 @@ export default function App() {
             </div>
           </section>
 
-          <section className="bg-white pb-20 lg:pb-26">
+          <section className="bg-white pb-24 lg:pb-30">
             <div className="mx-auto max-w-7xl px-5 lg:px-8">
-              <div className="mt-16">
+              <div className="mt-20">
                 <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
                   <div>
                     <p className="section-kicker">Experiencias reales</p>
@@ -1222,7 +1237,7 @@ export default function App() {
           {/* SECTOR DE PREGUNTAS */}
           <section
             id="preguntas"
-            className="scroll-mt-20 border-y border-sky-100 bg-white px-5 py-18 lg:px-8 lg:py-26"
+            className="scroll-mt-20 bg-white px-5 pt-6 pb-18 lg:px-8 lg:pt-8 lg:pb-26"
           >
             <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
               <div>
@@ -1275,7 +1290,7 @@ export default function App() {
           {/* Sección de Redes Sociales */}
           <section className="bg-sky-50 pb-5 px-5 ">
             <div className="mx-auto max-w-5xl pt-10 pb-26 text-center">
-              <h3 className="mb-12 text-4xl font-extrabold tracking-tight text-[#082f49] sm:text-5xl">
+              <h3 className="mb-12 text-4xl font-extrabold tracking-tight text-[#082f49] lg:text-6xl">
                 Nuestras Redes
               </h3>
               <div className="grid grid-cols-2 items-start justify-center gap-x-4 gap-y-8 sm:grid-cols-4 sm:gap-8">
@@ -1299,7 +1314,7 @@ export default function App() {
 
                 {/* Instagram */}
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/soldeamerica115?utm_source=ig_web_button_share_sheet&gwpx=ZDNlZDc0MzIxNw=="
                   target="_blank"
                   rel="noreferrer"
                   className="group flex min-w-0 flex-col items-center transition hover:-translate-y-1"
@@ -1331,7 +1346,7 @@ export default function App() {
 
                 {/* Facebook */}
                 <a
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/profile.php?id=61583695944675"
                   target="_blank"
                   rel="noreferrer"
                   className="group flex min-w-0 flex-col items-center transition hover:-translate-y-1"
@@ -1352,7 +1367,7 @@ export default function App() {
 
                 {/* Correo Electrónico */}
                 <a
-                  href="mailto:soldeamerica@gmail.com"
+                  href="mailto:soldeamerica.zc@gmail.com"
                   className="group flex min-w-0 flex-col items-center transition hover:-translate-y-1"
                 >
                   <div className="grid h-16 w-16 place-items-center rounded-full bg-white shadow-md shadow-slate-300/60 ring-1 ring-slate-200 transition group-hover:scale-105">
