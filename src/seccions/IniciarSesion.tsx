@@ -1,7 +1,8 @@
 import { FormEvent, useState } from "react"
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 import AccountShell from "../components/AccountShell"
 import Icon from "../components/Icon"
+import { loginCustomer } from "../data/authApi"
 
 type LoginErrors = Partial<Record<"email" | "password", string>>
 
@@ -14,29 +15,44 @@ export default function IniciarSesion() {
   const [showPassword, setShowPassword] = useState(false)
   const [errors, setErrors] = useState<LoginErrors>({})
   const [notice, setNotice] = useState("")
-  const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const navigate = useNavigate()
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const nextErrors: LoginErrors = {}
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
       nextErrors.email = "Ingresá un correo electrónico válido."
     }
-    if (password.length < 8) {
-      nextErrors.password = "La contraseña debe tener al menos 8 caracteres."
+    if (!password) {
+      nextErrors.password = "Ingresá tu contraseña."
     }
 
     setErrors(nextErrors)
     setNotice("")
-    setSubmitted(Object.keys(nextErrors).length === 0)
+    if (Object.keys(nextErrors).length > 0) return
+
+    setIsSubmitting(true)
+    try {
+      await loginCustomer(email.trim(), password)
+      navigate("/", { replace: true })
+    } catch (error) {
+      setNotice(
+        error instanceof Error
+          ? error.message
+          : "No pudimos iniciar sesión. Intentá nuevamente.",
+      )
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
     <AccountShell
       eyebrow="Acceso a tu cuenta"
       title="Qué bueno tenerte de vuelta."
-      description="Ingresá tus datos para continuar. Esta es una experiencia demostrativa: la información se valida únicamente en tu navegador."
+      description="Ingresá con el correo y la contraseña de tu cuenta de cliente."
     >
       <div>
         <p className="text-xs font-extrabold tracking-[0.16em] text-sky-500 uppercase">
@@ -46,32 +62,14 @@ export default function IniciarSesion() {
           Accedé a tu cuenta
         </h2>
         <p className="mt-3 text-sm leading-6 text-slate-500">
-          Completá los campos para validar el acceso.
+          Usá los datos que registraste en Sol de América.
         </p>
       </div>
-
-      {submitted && (
-        <div
-          className="mt-6 flex gap-3 rounded-2xl border border-sky-200 bg-sky-50 p-4 text-sm text-sky-950"
-          role="status"
-        >
-          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-sky-500 text-white">
-            <Icon name="check" className="h-4 w-4" />
-          </span>
-          <span>
-            <strong className="block">Datos validados correctamente.</strong>
-            <span className="mt-1 block text-slate-600">
-              El acceso real estará disponible cuando se conecte el sistema de
-              cuentas.
-            </span>
-          </span>
-        </div>
-      )}
 
       {notice && (
         <p
           className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900"
-          role="status"
+          role="alert"
         >
           {notice}
         </p>
@@ -86,7 +84,7 @@ export default function IniciarSesion() {
             onChange={(event) => {
               setEmail(event.target.value)
               setErrors((current) => ({ ...current, email: undefined }))
-              setSubmitted(false)
+              setNotice("")
             }}
             className={`${inputClass} mt-2 ${
               errors.email ? "border-red-400 focus:border-red-400" : ""
@@ -115,12 +113,12 @@ export default function IniciarSesion() {
               onChange={(event) => {
                 setPassword(event.target.value)
                 setErrors((current) => ({ ...current, password: undefined }))
-                setSubmitted(false)
+                setNotice("")
               }}
               className={`${inputClass} pr-20 ${
                 errors.password ? "border-red-400 focus:border-red-400" : ""
               }`}
-              placeholder="Mínimo 8 caracteres"
+              placeholder="Tu contraseña"
               autoComplete="current-password"
               aria-invalid={Boolean(errors.password)}
               aria-describedby={
@@ -148,19 +146,12 @@ export default function IniciarSesion() {
           )}
         </label>
 
-        <div className="flex items-center justify-between gap-4">
-          <label className="flex items-center gap-2 text-xs font-semibold text-slate-600">
-            <input
-              type="checkbox"
-              className="h-4 w-4 rounded border-slate-300 accent-sky-600"
-            />
-            Recordarme
-          </label>
+        <div className="flex justify-end">
           <button
             type="button"
             onClick={() =>
               setNotice(
-                "La recuperación de contraseña estará disponible cuando se conecte el sistema de cuentas.",
+                "La recuperación de contraseña todavía no está habilitada. Contactá al local para restablecerla.",
               )
             }
             className="text-xs font-bold text-sky-700 hover:text-sky-950"
@@ -171,9 +162,10 @@ export default function IniciarSesion() {
 
         <button
           type="submit"
-          className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-sky-950 px-6 text-sm font-bold text-white transition hover:bg-sky-700 focus:ring-4 focus:ring-sky-200 focus:outline-none"
+          disabled={isSubmitting}
+          className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-sky-950 px-6 text-sm font-bold text-white transition hover:bg-sky-700 focus:ring-4 focus:ring-sky-200 focus:outline-none disabled:cursor-wait disabled:opacity-60"
         >
-          Iniciar sesión
+          {isSubmitting ? "Ingresando..." : "Iniciar sesión"}
           <Icon name="arrow" className="h-4 w-4" />
         </button>
       </form>

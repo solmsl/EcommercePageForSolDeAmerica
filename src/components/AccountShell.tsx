@@ -59,7 +59,7 @@ export default function AccountShell({
             <div className="relative mt-8 hidden space-y-4 lg:block">
               {[
                 "Validaciones claras antes de continuar",
-                "Tus datos no se guardan en esta demostración",
+                "Acceso exclusivo para clientes",
                 "Podés volver a la tienda en cualquier momento",
               ].map((item) => (
                 <div

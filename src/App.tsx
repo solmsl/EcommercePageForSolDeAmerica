@@ -12,6 +12,11 @@ import {
   slides,
 } from "./data/content"
 import type { Product } from "./data/content"
+import {
+  getCustomerSessionUser,
+  logoutCustomer,
+  type CustomerUser,
+} from "./data/authApi"
 import { fetchProducts } from "./data/productsApi"
 import WorkComparisonCard from "./components/WorkComparisonCard"
 import ProductoDetalle from "./seccions/ProductoDetalle"
@@ -141,6 +146,9 @@ export default function App() {
   const [productsLoading, setProductsLoading] = useState(true)
   const [productsError, setProductsError] = useState<string | null>(null)
   const [productsRequest, setProductsRequest] = useState(0)
+  const [customer, setCustomer] = useState<CustomerUser | null>(() =>
+    getCustomerSessionUser(),
+  )
   const [cart, setCart] = useState<number[]>([])
   const [cartOpen, setCartOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -393,13 +401,29 @@ export default function App() {
             >
               <Icon name="search" />
             </button>
-            <Link
-              to="/iniciar-sesion"
-              className="grid h-11 w-11 place-items-center rounded-full border border-sky-100 text-sky-950 transition hover:border-sky-200 hover:bg-sky-50"
-              aria-label="Iniciar sesión"
-            >
-              <Icon name="user" />
-            </Link>
+            {customer ? (
+              <button
+                type="button"
+                onClick={() => {
+                  logoutCustomer()
+                  setCustomer(null)
+                  setCart([])
+                }}
+                className="grid h-11 w-11 place-items-center rounded-full border border-sky-100 text-sky-950 transition hover:border-sky-200 hover:bg-sky-50"
+                aria-label={`Cerrar sesión de ${customer.name}`}
+                title={`Cerrar sesión de ${customer.name}`}
+              >
+                <Icon name="user" />
+              </button>
+            ) : (
+              <Link
+                to="/iniciar-sesion"
+                className="grid h-11 w-11 place-items-center rounded-full border border-sky-100 text-sky-950 transition hover:border-sky-200 hover:bg-sky-50"
+                aria-label="Iniciar sesión"
+              >
+                <Icon name="user" />
+              </Link>
+            )}
             <button
               onClick={() => setCartOpen(true)}
               className="relative grid h-11 w-11 place-items-center rounded-full border border-sky-100 text-sky-950 transition hover:bg-sky-50"

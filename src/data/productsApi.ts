@@ -1,7 +1,7 @@
 import productPlaceholder from "../assets/product-placeholder.svg"
+import { API_BASE_URL } from "./api"
 import type { Product } from "./content"
 
-const API_BASE_URL = "https://sol-de-america.wasmer.app/api"
 const API_ORIGIN = new URL(API_BASE_URL).origin
 
 interface ProductPage {

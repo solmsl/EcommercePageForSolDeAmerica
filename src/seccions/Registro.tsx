@@ -1,7 +1,8 @@
 import { FormEvent, useMemo, useState } from "react"
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 import AccountShell from "../components/AccountShell"
 import Icon from "../components/Icon"
+import { registerCustomer } from "../data/authApi"
 
 type RegisterErrors = Partial<Record<"name" | "email" | "password" | "confirmation" | "terms", string>>
 
@@ -13,23 +14,21 @@ export default function Registro() {
   const [confirmation, setConfirmation] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const [errors, setErrors] = useState<RegisterErrors>({})
-  const [submitted, setSubmitted] = useState(false)
+  const [notice, setNotice] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const navigate = useNavigate()
 
   const passwordChecks = useMemo(
-    () => [
-      { label: "8 caracteres", valid: password.length >= 8 },
-      { label: "Una mayúscula", valid: /[A-ZÁÉÍÓÚÑ]/.test(password) },
-      { label: "Un número", valid: /\d/.test(password) },
-    ],
+    () => [{ label: "6 caracteres", valid: password.length >= 6 }],
     [password],
   )
 
   const clearError = (field: keyof RegisterErrors) => {
     setErrors((current) => ({ ...current, [field]: undefined }))
-    setSubmitted(false)
+    setNotice("")
   }
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
     const name = String(data.get("name") ?? "").trim()
@@ -44,7 +43,7 @@ export default function Registro() {
       nextErrors.email = "Ingresá un correo electrónico válido."
     }
     if (!passwordChecks.every((check) => check.valid)) {
-      nextErrors.password = "La contraseña no cumple todos los requisitos."
+      nextErrors.password = "La contraseña debe tener al menos 6 caracteres."
     }
     if (!confirmation || confirmation !== password) {
       nextErrors.confirmation = "Las contraseñas deben coincidir."
@@ -54,14 +53,29 @@ export default function Registro() {
     }
 
     setErrors(nextErrors)
-    setSubmitted(Object.keys(nextErrors).length === 0)
+    setNotice("")
+    if (Object.keys(nextErrors).length > 0) return
+
+    setIsSubmitting(true)
+    try {
+      await registerCustomer(name, email, password)
+      navigate("/", { replace: true })
+    } catch (error) {
+      setNotice(
+        error instanceof Error
+          ? error.message
+          : "No pudimos crear la cuenta. Intentá nuevamente.",
+      )
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
     <AccountShell
       eyebrow="Crear una cuenta"
       title="Empezá tu experiencia con Sol de América."
-      description="Completá tus datos y comprobá el flujo de registro. Esta interfaz valida la información, pero no la almacena ni crea una cuenta real."
+      description="Registrate para crear tu cuenta de cliente en Sol de América."
     >
       <div>
         <p className="text-xs font-extrabold tracking-[0.16em] text-sky-500 uppercase">
@@ -75,22 +89,13 @@ export default function Registro() {
         </p>
       </div>
 
-      {submitted && (
-        <div
-          className="mt-6 flex gap-3 rounded-2xl border border-sky-200 bg-sky-50 p-4 text-sm text-sky-950"
-          role="status"
+      {notice && (
+        <p
+          className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900"
+          role="alert"
         >
-          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-sky-500 text-white">
-            <Icon name="check" className="h-4 w-4" />
-          </span>
-          <span>
-            <strong className="block">Formulario validado.</strong>
-            <span className="mt-1 block text-slate-600">
-              La cuenta no fue almacenada porque esta experiencia no utiliza una
-              base de datos.
-            </span>
-          </span>
-        </div>
+          {notice}
+        </p>
       )}
 
       <form className="mt-7 space-y-4" onSubmit={handleSubmit} noValidate>
@@ -255,9 +260,10 @@ export default function Registro() {
 
         <button
           type="submit"
-          className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-sky-950 px-6 text-sm font-bold text-white transition hover:bg-sky-700 focus:ring-4 focus:ring-sky-200 focus:outline-none"
+          disabled={isSubmitting}
+          className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-sky-950 px-6 text-sm font-bold text-white transition hover:bg-sky-700 focus:ring-4 focus:ring-sky-200 focus:outline-none disabled:cursor-wait disabled:opacity-60"
         >
-          Crear cuenta
+          {isSubmitting ? "Creando cuenta..." : "Crear cuenta"}
           <Icon name="arrow" className="h-4 w-4" />
         </button>
       </form>
